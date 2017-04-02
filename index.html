@@ -17,12 +17,128 @@
 <body>
     <div class="centered">
         <div id="home-content">
-            <h1 id="name">John Grzechowiak</h1>
-            <h2 id="subtitle">Software Developer</h2>
+            <div id="identification">
+                <h1 id="name"><span id="left-brac">&lt;</span><span id="name-n">John Grzechowiak</span><span id="right-brac">/></span></h1>
+                <h2 id="subtitle">Software Developer</h2>
+            </div>
             <div class="container center">
-                <button id="about-btn" class="btn">Learn More</button>
+                <button id="about-btn" class="btn" onclick="moveName()">Learn More</button>
+            </div>
+            
+            <div id="section-links">
+                <p class="command" id="cmd2" style="opacity: 0"><span style="color: #A6E22E">guest@johngrzechowiak.com</span>: <span style="color: #AE81FF">~</span>$ <span class="inpt"></span></p>
+                <p class="command" id="cmd1"><span style="color: #A6E22E">guest@johngrzechowiak.com</span>: <span style="color: #AE81FF">~</span>$ <span class="inpt"></span></p>
+                <div id="folder-box" class="flexbox">
+                    <div class="box" id="projects">
+                        <h1>Projects<span>/</span></h1>
+                    </div>
+                    <div class="box" id="about-me">
+                        <h1>About Me<span>/</span></h1>
+                    </div>
+                    <div class="box" id="contact">
+                        <h1>Contact<span>/</span></h1>
+                    </div>
+                </div>
+                <div id="content-box">
+                    
+                </div>
             </div>
         </div>
     </div>
+    <script>
+        var showing = false;
+        
+        $(function(){
+            intro();
+            
+            $("#projects").click(function(){
+                if (!showing) {
+                    showing = true;
+                    updateCommand("cd Projects/", 80);
+                    makeActiveHeading(this);
+                }
+            });
+            $("#about-me").click(function(){
+                if (!showing) {
+                    showing = true;
+                    updateCommand("cd About\\ Me/", 80);
+                    makeActiveHeading(this);
+                }
+            });
+            $("#contact").click(function(){
+                if (!showing) {
+                    showing = true;
+                    updateCommand("cd Contact/", 80);
+                    makeActiveHeading(this);
+                }
+            });
+        });
+        
+        function makeActiveHeading(el) {
+            $(".box").removeClass("active");
+            $(el).removeClass("not-active");
+            $(el).addClass("active");
+            $(".box").not(el).addClass("not-active");
+        }
+        
+        function updateCommand(text, speed, _callback) {
+            $("#cmd2").removeAttr("style");
+            var txt = $("#cmd1 .inpt").text();
+            $("#cmd2 .inpt").text(txt);
+            $("#cmd1 .inpt").text("");
+            showText("#cmd1 .inpt", text, 0, speed, _callback);
+        }
+        
+        function intro() {
+            $("#name-n").css("opacity", 1);
+            $("#subtitle").css("opacity", 1);
+            $("#about-btn").css("opacity", 1);
+            $("#left-brac").css("margin-left", "-100px");
+            $("#right-brac").css("margin-left", "40px");
+        }
+        
+        function moveName() {
+            var pos = $("#identification").offset();
+            var left = -pos.left + 10;
+            var top = -pos.top + 5;
+            $("#identification").css("transform", "translate("+left+"px, "+top+"px) scale(0.8,0.8)");
+            
+            $("#about-btn").css({
+                transition: "all 0.7s",
+                transform: "translateY(50px)",
+                opacity: 0
+            });
+            
+            setTimeout(function(){
+                $("#identification").removeAttr("style");
+                $("#identification").addClass("fixed");
+                $("#about-btn").parent().hide();
+                $("#home-content").css({
+                    justifyContent: "flex-start",
+                    top: "100px"
+                });
+                $("#section-links").fadeIn(500, function(){
+                    showText("#cmd1 .inpt", "ls -tr", 0, 100, function(){
+                        $("#folder-box .box").hide();
+                        $("#folder-box").css("display", "flex");
+                        $("#folder-box .box").fadeIn(500);
+                    });
+                });
+            }, 700);
+        }
+        
+        function showText(target, message, index, interval, _callback) {
+            if (index < message.length) { 
+                $(target).append(message[index++]);
+                setTimeout(function(){ 
+                    showText(target, message, index, interval, _callback);
+                }, interval); 
+            } else {
+                if (_callback !== undefined)
+                    _callback();
+                showing = false;
+            }
+        }
+    </script>
 </body>
 </html>
