@@ -26,6 +26,7 @@ html, body {
     padding: 0;
     overflow-y: auto;
     overflow-x: hidden;
+    height: 100vh;
 }
 
 h1, h2, h3, button {
@@ -39,7 +40,7 @@ h1, h2, h3, button {
     max-width: 1000px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 10px;
+    height: auto;
 }
 
 .container {
@@ -135,8 +136,8 @@ h1, h2, h3, button {
 }
 #home-content.top {
     justify-content: flex-start;
-    height: 100vh;
-    overflow-y: auto;
+    height: auto;
+    position: relative;
 }
 
 #name {
@@ -271,9 +272,7 @@ h1, h2, h3, button {
 }
 .content-box.open {
     transform: scale(1,1);
-    position: absolute;
-    max-width: 970px;
-    width: calc(100% - 50px);
+    position: relative;
 }
 
 @media only screen and (max-width: 750px) {
