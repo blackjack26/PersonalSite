@@ -79,6 +79,10 @@
             });
 
             fixCommandSize();
+
+            setTimeout( function () {
+                window.scrollTo( 0, 1 );
+            }, 0 );
         });
 
         $(window).resize(function(){
@@ -140,7 +144,8 @@
             });
 
             setTimeout(function(){
-                $("#identification").css("transform", "");
+                document.getElementById("identification").getAttribute("style");
+                document.getElementById("identification").setAttribute("style", "");
                 $("#identification").addClass("fixed");
                 $("#about-btn").parent().hide();
                 $("#home-content").addClass("top");
