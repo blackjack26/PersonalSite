@@ -26,8 +26,8 @@
             </div>
             
             <div id="section-links">
-                <p class="command" id="cmd2" style="opacity: 0"><span style="color: #A6E22E">guest@johngrzechowiak.com</span>: <span style="color: #AE81FF">~</span>$ <span class="inpt"></span></p>
-                <p class="command" id="cmd1"><span style="color: #A6E22E">guest@johngrzechowiak.com</span>: <span style="color: #AE81FF">~</span>$ <span class="inpt"></span></p>
+                <p class="command" id="cmd2" style="opacity: 0"><span style="color: #A6E22E">guest@johngrzechowiak.com</span>: <span class="dir" style="color: #AE81FF">~</span>$ <span class="inpt"></span></p>
+                <p class="command" id="cmd1"><span style="color: #A6E22E">guest@johngrzechowiak.com</span>: <span class="dir" style="color: #AE81FF">~</span>$ <span class="inpt"></span></p>
                 <div id="folder-box" class="flexbox">
                     <div class="box" id="projects">
                         <h1>Projects<span>/</span></h1>
@@ -61,6 +61,7 @@
     </div>
     <script>
         var showing = false;
+        var mobile = false;
         
         $(function(){
             intro();
@@ -74,7 +75,23 @@
             $("#contact").click(function(){
                 makeActiveHeading("Contact", this, "#contact-box");
             });
+            
+            fixCommandSize();
         });
+        
+        $(window).resize(function(){
+            fixCommandSize();
+        });
+        
+        function fixCommandSize() {
+            if ($(window).width() <= 750 && !mobile) {
+                $(".dir").append("<br>");
+                mobile = true;
+            } else {
+                mobile = false;
+                $(".dir br").remove();
+            }
+        }
         
         function makeActiveHeading(loc, el, box) {
             if (!showing && !$(this).hasClass("active")) {
@@ -104,13 +121,13 @@
             $("#name-n").css("opacity", 1);
             $("#subtitle").css("opacity", 1);
             $("#about-btn").css("opacity", 1);
-            $("#left-brac").css("margin-left", "-100px");
-            $("#right-brac").css("margin-left", "40px");
+            $("#left-brac").addClass("open");
+            $("#right-brac").addClass("open");
         }
         
         function moveName() {
             var pos = $("#identification").offset();
-            var left = -pos.left + 10;
+            var left = -pos.left;
             var top = -pos.top + 5;
             $("#identification").css("transform", "translate("+left+"px, "+top+"px) scale(0.8,0.8)");
             
@@ -124,10 +141,7 @@
                 $("#identification").removeAttr("style");
                 $("#identification").addClass("fixed");
                 $("#about-btn").parent().hide();
-                $("#home-content").css({
-                    justifyContent: "flex-start",
-                    top: "100px"
-                });
+                $("#home-content").addClass("top");
                 $("#section-links").fadeIn(500, function(){
                     showText("#cmd1 .inpt", "ls -tr", 0, 100, function(){
                         $("#folder-box .box").hide();

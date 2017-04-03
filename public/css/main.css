@@ -24,6 +24,8 @@ html, body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 h1, h2, h3, button {
@@ -131,6 +133,12 @@ h1, h2, h3, button {
     left: 0;
     width: 100%;
 }
+#home-content.top {
+    justify-content: flex-start;
+    top: 100px;
+    height: calc(100vh - 100px);
+    overflow-y: auto;
+}
 
 #name {
     text-align: center;
@@ -153,6 +161,10 @@ h1, h2, h3, button {
     color: #383830;
     transition: margin-left 1s;
     transition-delay: 0.1s;
+    z-index: -1;
+}
+#left-brac.open {
+    margin-left: -100px;
 }
 #right-brac {
     position: absolute;
@@ -162,6 +174,10 @@ h1, h2, h3, button {
     color: #383830;
     transition: margin-left 1s;
     transition-delay: 0.1s;
+    z-index: -1;
+}
+#right-brac.open {
+    margin-left: 40px;
 }
 
 #subtitle {
@@ -189,7 +205,7 @@ h1, h2, h3, button {
     position: fixed;
     padding: 5px 10px;
     top: 0;
-    width: 100%;
+    width: calc(100% - 20px);
 }
 
 #section-links {
@@ -251,10 +267,38 @@ h1, h2, h3, button {
     margin-top: 15px;
     transform: scale(0.65,0.65);
     transition: transform 0.5s;
+    margin-bottom: 15px;
 }
 .content-box.open {
     transform: scale(1,1);
     position: absolute;
     max-width: 970px;
     width: calc(100% - 50px);
+}
+
+@media only screen and (max-width: 750px) {
+    #name-n {
+        font-size: 75%;
+    }
+    #left-brac { 
+        margin-left: 80px; 
+    }
+    #right-brac {
+        margin-left: -170px;
+    }
+    .flexbox {
+        flex-direction: column;
+    }
+    .box h1 {
+        margin: 5px 0px;
+    }
+    #cmd2 {
+        display: none;
+    }
+    #section-links {
+        padding-top: 0;
+    }
+    .command {
+        margin: 0;
+    }
 }
