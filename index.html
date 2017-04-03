@@ -19,7 +19,7 @@
         <div id="home-content">
             <div id="identification">
                 <h1 id="name"><span id="left-brac">&lt;</span><span id="name-n">John Grzechowiak</span><span id="right-brac">/></span></h1>
-                <h2 id="subtitle">Software Developer</h2>
+                <h2 id="subtitle">Full Stack Developer</h2>
             </div>
             <div class="container center">
                 <button id="about-btn" class="btn" onclick="moveName()">Learn More</button>
@@ -39,8 +39,22 @@
                         <h1>Contact<span>/</span></h1>
                     </div>
                 </div>
-                <div id="content-box">
-                    
+                <div id="welcome-box" class="content-box">
+                    <h2 class="section-title">Welcome!</h2>
+                    <p class="page-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at lectus commodo sapien consequat semper in sit amet neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla bibendum, diam sit amet dapibus lobortis, quam libero scelerisque tellus, et consequat sapien dolor eget nibh. Ut ultrices justo augue. Nullam nec ipsum sed mauris fermentum scelerisque. Phasellus tempor augue lorem, et dapibus tortor luctus a. Nullam porttitor nisl in ultricies suscipit. Aliquam fringilla magna eros, non ultricies leo volutpat eget. Vestibulum ut gravida diam. Quisque at nibh et ante aliquet congue. Pellentesque pharetra porta turpis vestibulum porttitor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed pretium nunc at tempus tincidunt.
+                        <br><br/>
+                        Pellentesque porta accumsan mi mattis viverra. Vivamus congue consequat eros, sit amet vestibulum tellus ultrices eget. Integer vestibulum sem sit amet porta porta. Sed congue lectus et dolor posuere maximus. Donec nec commodo odio, eget cursus tellus. Aliquam ultricies iaculis sapien, sed sagittis ligula pharetra sed. Integer interdum dui sagittis, facilisis augue id, maximus tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque ligula, pellentesque at mattis faucibus, suscipit ac justo. Sed gravida imperdiet nibh id imperdiet. Pellentesque ullamcorper nibh quis ante maximus aliquet sit amet non velit. Vivamus ac semper libero.
+                    </p>
+                </div>
+                <div id="projects-box" class="content-box">
+                    <h2 class="section-title">My Applications</h2>
+                </div>
+                <div id="about-me-box" class="content-box">
+                    <h2 class="section-title">Who I Am</h2>
+                </div>
+                <div id="contact-box" class="content-box">
+                    <h2 class="section-title">How to Reach Me</h2>
                 </div>
             </div>
         </div>
@@ -52,33 +66,30 @@
             intro();
             
             $("#projects").click(function(){
-                if (!showing) {
-                    showing = true;
-                    updateCommand("cd Projects/", 80);
-                    makeActiveHeading(this);
-                }
+                makeActiveHeading("Projects", this, "#projects-box");
             });
             $("#about-me").click(function(){
-                if (!showing) {
-                    showing = true;
-                    updateCommand("cd About\\ Me/", 80);
-                    makeActiveHeading(this);
-                }
+                makeActiveHeading("About\\ Me", this, "#about-me-box");
             });
             $("#contact").click(function(){
-                if (!showing) {
-                    showing = true;
-                    updateCommand("cd Contact/", 80);
-                    makeActiveHeading(this);
-                }
+                makeActiveHeading("Contact", this, "#contact-box");
             });
         });
         
-        function makeActiveHeading(el) {
-            $(".box").removeClass("active");
-            $(el).removeClass("not-active");
-            $(el).addClass("active");
-            $(".box").not(el).addClass("not-active");
+        function makeActiveHeading(loc, el, box) {
+            if (!showing && !$(this).hasClass("active")) {
+                showing = true;
+                var msg = "cd "+loc+"/";
+                if ($(el).hasClass("not-active"))
+                    msg = "cd ../"+loc+"/";
+                updateCommand(msg, 80);
+                $(".box").removeClass("active");
+                $(el).removeClass("not-active");
+                $(el).addClass("active");
+                $(".box").not(el).addClass("not-active");
+                
+                showContentBox(box);
+            }
         }
         
         function updateCommand(text, speed, _callback) {
@@ -122,9 +133,19 @@
                         $("#folder-box .box").hide();
                         $("#folder-box").css("display", "flex");
                         $("#folder-box .box").fadeIn(500);
+                        setTimeout(function(){
+                            showContentBox("#welcome-box");
+                        }, 500);
                     });
                 });
             }, 700);
+        }
+        
+        function showContentBox(id) {
+            $(".content-box").not(id).removeClass("open");
+            $(".content-box").not(id).hide();
+            $(id).fadeIn(500);
+            $(id).addClass("open");
         }
         
         function showText(target, message, index, interval, _callback) {

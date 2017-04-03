@@ -26,11 +26,13 @@ html, body {
     padding: 0;
 }
 
-h1, button {
+h1, h2, h3, button {
     font-family: 'Ubuntu', sans-serif;
     font-weight: 300;
 }
-
+.section-title {
+    margin-top: 0;
+}
 .centered {
     max-width: 1000px;
     width: 100%;
@@ -63,8 +65,14 @@ h1, button {
     display: inline-block;
     transition: color 0.5s;
 }
+.box h1 span {
+     color: #F8F8F2;
+}
 .box.not-active h1 { 
     color: #75715E;
+}
+.box.not-active h1 span {
+    color: #A59F85;
 }
 
 .center {
@@ -106,6 +114,10 @@ h1, button {
 .btn:hover::before {
     box-shadow: inset 0 0 0 2px #FD971F;
     transform: scale3d(1, 1, 1);
+}
+
+.page-text {
+    margin-bottom: 0;
 }
 
 /* index.html */
@@ -183,7 +195,7 @@ h1, button {
 #section-links {
     display: none;
     max-width: 1000px;
-    width: 100%;
+    width: calc(100% - 20px);
     margin: 0 auto;
     padding: 10px;
 }
@@ -230,4 +242,19 @@ h1, button {
     opacity: 1;
     -webkit-transform: translateX(0px);
     transform: translateX(0px);
+}
+
+.content-box {
+    background-color: #383830;
+    padding: 15px;
+    display: none;
+    margin-top: 15px;
+    transform: scale(0.65,0.65);
+    transition: transform 0.5s;
+}
+.content-box.open {
+    transform: scale(1,1);
+    position: absolute;
+    max-width: 970px;
+    width: calc(100% - 50px);
 }
