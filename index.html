@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="public/images/icon.png" type="image/png" />
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
@@ -24,7 +25,7 @@
             <div class="container center">
                 <button id="about-btn" class="btn" onclick="moveName()">Learn More</button>
             </div>
-            
+
             <div id="section-links">
                 <p class="command" id="cmd2" style="opacity: 0"><span style="color: #A6E22E">guest@johngrzechowiak.com</span>: <span class="dir" style="color: #AE81FF">~</span>$ <span class="inpt"></span></p>
                 <p class="command" id="cmd1"><span style="color: #A6E22E">guest@johngrzechowiak.com</span>: <span class="dir" style="color: #AE81FF">~</span>$ <span class="inpt"></span></p>
@@ -62,10 +63,10 @@
     <script>
         var showing = false;
         var mobile = false;
-        
+
         $(function(){
             intro();
-            
+
             $("#projects").click(function(){
                 makeActiveHeading("Projects", this, "#projects-box");
             });
@@ -75,24 +76,24 @@
             $("#contact").click(function(){
                 makeActiveHeading("Contact", this, "#contact-box");
             });
-            
+
             fixCommandSize();
         });
-        
+
         $(window).resize(function(){
             fixCommandSize();
         });
-        
+
         function fixCommandSize() {
             if ($(window).width() <= 750 && !mobile) {
                 $(".dir").append("<br>");
                 mobile = true;
-            } else {
+            } else if ($(window).width() > 750){
                 mobile = false;
                 $(".dir br").remove();
             }
         }
-        
+
         function makeActiveHeading(loc, el, box) {
             if (!showing && !$(this).hasClass("active")) {
                 showing = true;
@@ -104,11 +105,11 @@
                 $(el).removeClass("not-active");
                 $(el).addClass("active");
                 $(".box").not(el).addClass("not-active");
-                
+
                 showContentBox(box);
             }
         }
-        
+
         function updateCommand(text, speed, _callback) {
             $("#cmd2").removeAttr("style");
             var txt = $("#cmd1 .inpt").text();
@@ -116,7 +117,7 @@
             $("#cmd1 .inpt").text("");
             showText("#cmd1 .inpt", text, 0, speed, _callback);
         }
-        
+
         function intro() {
             $("#name-n").css("opacity", 1);
             $("#subtitle").css("opacity", 1);
@@ -124,19 +125,19 @@
             $("#left-brac").addClass("open");
             $("#right-brac").addClass("open");
         }
-        
+
         function moveName() {
             var pos = $("#identification").offset();
             var left = -pos.left;
-            var top = -pos.top + 5;
+            var top = -pos.top;
             $("#identification").css("transform", "translate("+left+"px, "+top+"px) scale(0.8,0.8)");
-            
+
             $("#about-btn").css({
                 transition: "all 0.7s",
                 transform: "translateY(50px)",
                 opacity: 0
             });
-            
+
             setTimeout(function(){
                 $("#identification").removeAttr("style");
                 $("#identification").addClass("fixed");
@@ -154,20 +155,20 @@
                 });
             }, 700);
         }
-        
+
         function showContentBox(id) {
             $(".content-box").not(id).removeClass("open");
             $(".content-box").not(id).hide();
             $(id).fadeIn(500);
             $(id).addClass("open");
         }
-        
+
         function showText(target, message, index, interval, _callback) {
-            if (index < message.length) { 
+            if (index < message.length) {
                 $(target).append(message[index++]);
-                setTimeout(function(){ 
+                setTimeout(function(){
                     showText(target, message, index, interval, _callback);
-                }, interval); 
+                }, interval);
             } else {
                 if (_callback !== undefined)
                     _callback();
