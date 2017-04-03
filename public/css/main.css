@@ -207,6 +207,7 @@ h1, h2, h3, button {
     position: relative;
     padding: 0px 10px;
     width: calc(100% - 20px);
+    margin-bottom: 10px;
 }
 
 #section-links {
@@ -275,7 +276,72 @@ h1, h2, h3, button {
     position: relative;
 }
 
-@media only screen and (max-width: 750px) {
+#app-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.app-container {
+    flex-grow: 1;
+    flex-basis: 300px;
+    max-width: 300px;
+    margin: 5px;
+    min-height: 100px;
+    position: relative;
+    border: 1px solid #272822;
+    overflow: hidden;
+}
+.app-image {
+    max-width: 300px;
+    max-height: 175px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.app-image img {
+    transition: all 0.5s;
+    transform: scale(1,1);
+    backface-visibility: hidden;
+    opacity: 1;
+}
+.app-title {
+    margin: 0;
+}
+.app-description {
+    margin: 0;
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.overlay {
+    opacity: 1;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    transition: all 0.5s;
+    padding: 5px 10px;
+    width: calc(100% - 20px);
+    background-color: rgba(0,0,0,0.75);
+    transform: translateY(18px);
+}
+
+.app-container:hover {
+    cursor: pointer;
+}
+.app-container:hover .overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+.app-container:hover .app-description {
+    opacity: 1;
+}
+.app-container:hover .app-image img {
+    transform: scale(1.1,1.1) translate(-20px,-10px) !important;
+    opacity: 0.6;
+}
+
+@media only screen and (max-width: 667px) {
     #name-n {
         font-size: 30px;
     }
@@ -309,5 +375,8 @@ h1, h2, h3, button {
     }
     .command {
         margin: 0;
+    }
+    #identification.fixed {
+        margin-top: -15px;
     }
 }

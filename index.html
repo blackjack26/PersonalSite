@@ -51,6 +51,25 @@
                 </div>
                 <div id="projects-box" class="content-box">
                     <h2 class="section-title">My Applications</h2>
+                    <div id="app-box">
+                        <div class="app-container" onclick="window.open('http://blackjack26.github.io/IntroRepository/', '_blank', '');">
+                            <div class="app-image">
+                                <img src="public/images/cognitive_release.png" style="transform: translate(-10px, -50px);" />
+                                <div class="overlay">
+                                    <h1 class="app-title">Cognitive Release</h1>
+                                    <p class="app-description">
+                                        A javascript text-adventure game
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="app-container">
+
+                        </div>
+                        <div class="app-container">
+
+                        </div>
+                    </div>
                 </div>
                 <div id="about-me-box" class="content-box">
                     <h2 class="section-title">Who I Am</h2>
@@ -86,10 +105,10 @@
         });
 
         function fixCommandSize() {
-            if ($(window).width() <= 750 && !mobile) {
+            if ($(window).width() <= 667 && !mobile) {
                 $(".dir").append("<br>");
                 mobile = true;
-            } else if ($(window).width() > 750){
+            } else if ($(window).width() > 667){
                 mobile = false;
                 $(".dir br").remove();
             }
@@ -131,6 +150,11 @@
             var pos = $("#identification").offset();
             var left = -pos.left;
             var top = -pos.top;
+
+            if (mobile) {
+                top = top - 15;
+            }
+
             $("#identification").css("transform", "translate("+left+"px, "+top+"px) scale(0.8,0.8)");
 
             $("#about-btn").css({
