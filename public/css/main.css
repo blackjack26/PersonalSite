@@ -135,8 +135,7 @@ h1, h2, h3, button {
 }
 #home-content.top {
     justify-content: flex-start;
-    top: 100px;
-    height: calc(100vh - 100px);
+    height: 100vh;
     overflow-y: auto;
 }
 
@@ -204,9 +203,8 @@ h1, h2, h3, button {
 #identification.fixed {
     transition: none;
     transform: translate(0,0) scale(0.8,0.8);
-    position: fixed;
+    position: relative;
     padding: 0px 10px;
-    top: 0;
     width: calc(100% - 20px);
 }
 

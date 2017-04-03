@@ -140,15 +140,7 @@
             });
 
             setTimeout(function(){
-                document.getElementById("identification").getAttribute("style");
                 document.getElementById("identification").setAttribute("style", "");
-
-                alert(document.getElementById("identification").getAttribute("style"));
-
-                if (document.getElementById("identification").getAttribute("style") !== "") {
-                    $("#identification").css("transform", "translate(0px, 0px) scale(0.8,0.8)");
-                }
-
                 $("#identification").addClass("fixed");
                 $("#about-btn").parent().hide();
                 $("#home-content").addClass("top");
