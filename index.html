@@ -50,26 +50,64 @@
                         Pellentesque porta accumsan mi mattis viverra. Vivamus congue consequat eros, sit amet vestibulum tellus ultrices eget. Integer vestibulum sem sit amet porta porta. Sed congue lectus et dolor posuere maximus. Donec nec commodo odio, eget cursus tellus. Aliquam ultricies iaculis sapien, sed sagittis ligula pharetra sed. Integer interdum dui sagittis, facilisis augue id, maximus tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque ligula, pellentesque at mattis faucibus, suscipit ac justo. Sed gravida imperdiet nibh id imperdiet. Pellentesque ullamcorper nibh quis ante maximus aliquet sit amet non velit. Vivamus ac semper libero.
                     </p>
                 </div>
-                <div id="projects-box" class="content-box">
-                    <h2 class="section-title">My Applications</h2>
-                    <div id="app-box">
-                        <div class="app-container" onclick="window.open('http://blackjack26.github.io/IntroRepository/', '_blank', '');">
-                            <div class="app-image">
-                                <img src="public/images/cognitive_release_img.png" style="transform: translate(-10px, -50px);" />
-                                <div class="overlay">
-                                    <h1 class="app-title">Cognitive Release</h1>
-                                    <p class="app-description">
-                                        A javascript text-adventure game
-                                    </p>
+                <div class="box-wrapper">
+                    <div id="projects-box" class="content-box">
+                        <h2 class="section-title">My Applications</h2>
+                        <div id="app-box">
+                            <div class="app-container" data-link="http://blackjack26.github.io/IntroRepository/">
+                                <div class="app-image">
+                                    <img src="public/images/cognitive_release_img.png" style="transform: translate(-10px, -50px);" />
+                                    <div class="overlay">
+                                        <h1 class="app-title">Cognitive Release</h1>
+                                        <p class="app-description">
+                                            Javascript text-adventure game
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="app-container">
+                                <div class="app-image" data-link="">
+                                    <img src="public/images/gndb.png" style="transform: translate(-10px, -50px);" />
+                                    <div class="overlay">
+                                        <h1 class="app-title">Graphic Narrative DB*</h1>
+                                        <p class="app-description">
+                                            PHP webapp for student articles
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="app-container" data-link="https://github.com/blackjack26/redjack-marist">
+                                <div class="app-image">
+                                    <img src="public/images/suggestion_the_hartford.png" style="transform: translate(-10px, -50px);" />
+                                    <div class="overlay">
+                                        <h1 class="app-title">Feedback Manager</h1>
+                                        <p class="app-description">
+                                            PHP webapp to review suggestions
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="app-container" data-link="https://bitbucket.org/blackjack26/simmons-dance-scheduler">
+                                <div class="app-image">
+                                    <img src="public/images/gndb.png" style="transform: translate(-10px, -50px);" />
+                                    <div class="overlay">
+                                        <h1 class="app-title">Dance Scheduler*</h1>
+                                        <p class="app-description">
+                                            Java webapp to plan weekly rehearsals
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="app-container">
-
-                        </div>
-                        <div class="app-container">
-
-                        </div>
+                        <p id="exception">* Currently in progress</p>
+                    </div>
+                    <div id="project-side-box" class="content-box side-box">
+                        <h2 class="section-title">Welcome!</h2>
+                        <p class="page-text">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at lectus commodo sapien consequat semper in sit amet neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla bibendum, diam sit amet dapibus lobortis, quam libero scelerisque tellus, et consequat sapien dolor eget nibh. Ut ultrices justo augue. Nullam nec ipsum sed mauris fermentum scelerisque. Phasellus tempor augue lorem, et dapibus tortor luctus a. Nullam porttitor nisl in ultricies suscipit. Aliquam fringilla magna eros, non ultricies leo volutpat eget. Vestibulum ut gravida diam. Quisque at nibh et ante aliquet congue. Pellentesque pharetra porta turpis vestibulum porttitor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed pretium nunc at tempus tincidunt.
+                            <br><br/>
+                            Pellentesque porta accumsan mi mattis viverra. Vivamus congue consequat eros, sit amet vestibulum tellus ultrices eget. Integer vestibulum sem sit amet porta porta. Sed congue lectus et dolor posuere maximus. Donec nec commodo odio, eget cursus tellus. Aliquam ultricies iaculis sapien, sed sagittis ligula pharetra sed. Integer interdum dui sagittis, facilisis augue id, maximus tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque ligula, pellentesque at mattis faucibus, suscipit ac justo. Sed gravida imperdiet nibh id imperdiet. Pellentesque ullamcorper nibh quis ante maximus aliquet sit amet non velit. Vivamus ac semper libero.
+                        </p>
                     </div>
                 </div>
                 <div id="about-me-box" class="content-box">
@@ -90,12 +128,18 @@
 
             $("#projects").click(function(){
                 makeActiveHeading("Projects", this, "#projects-box");
+                $("#project-side-box").show();
             });
             $("#about-me").click(function(){
                 makeActiveHeading("About\\ Me", this, "#about-me-box");
             });
             $("#contact").click(function(){
                 makeActiveHeading("Contact", this, "#contact-box");
+            });
+
+            $(".app-container").click(function(){
+                $(this).closest(".content-box").addClass("shift");
+                $("#project-side-box").addClass("open");
             });
 
             fixCommandSize();

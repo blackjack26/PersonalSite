@@ -267,12 +267,29 @@ h1, h2, h3, button {
     padding: 15px;
     display: none;
     margin-top: 15px;
-    transform: scale(0.65,0.65);
+    transform: scale(0.65,0.65) translateX(0vw);
     transition: transform 0.5s;
     margin-bottom: 15px;
 }
 .content-box.open {
-    transform: scale(1,1);
+    transform: scale(1,1) translateX(0vw);
+    position: relative;
+}
+.content-box.shift {
+    transform: scale(1,1) translateX(-100vw);
+}
+.side-box {
+    transform: scale(1,1) translateX(100vw);
+    transition: transform 0.5s;
+    position: absolute;
+    top: 0;
+}
+.side-box.open {
+    transform: scale(1,1) translateX(0vw);
+    position: absolute;
+}
+
+.box-wrapper {
     position: relative;
 }
 
@@ -303,10 +320,11 @@ h1, h2, h3, button {
     transition: all 0.5s;
     transform: scale(1,1);
     backface-visibility: hidden;
-    opacity: 1;
+    opacity: 0.6;
 }
 .app-title {
     margin: 0;
+    font-size: 25px;
 }
 .app-description {
     margin: 0;
@@ -338,7 +356,12 @@ h1, h2, h3, button {
 }
 .app-container:hover .app-image img {
     transform: scale(1.1,1.1) translate(-20px,-10px) !important;
-    opacity: 0.6;
+    opacity: 1;
+}
+
+#exception {
+    text-align: right;
+    margin: 10px 0 0;
 }
 
 @media only screen and (max-width: 667px) {
