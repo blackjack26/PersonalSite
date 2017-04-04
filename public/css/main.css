@@ -17,16 +17,17 @@
 #AE81FF - Purple
 #CC6633 - Brown
 */
-
+html {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100vh;
+}
 html, body {
     background-color: #272822;
     color: #F8F8F2;
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 100vh;
 }
 
 h1, h2, h3, button {
@@ -268,8 +269,10 @@ h1, h2, h3, button {
     display: none;
     margin-top: 15px;
     transform: scale(0.65,0.65) translateX(0vw);
-    transition: transform 0.5s;
+    transition: transform 0.5s, opacity 0.5s;
     margin-bottom: 15px;
+    width: calc(100% - 30px);
+    opacity: 1;
 }
 .content-box.open {
     transform: scale(1,1) translateX(0vw);
@@ -277,16 +280,24 @@ h1, h2, h3, button {
 }
 .content-box.shift {
     transform: scale(1,1) translateX(-100vw);
+    transition: transform 0.8s, opacity 0.5s;
+    opacity: 0;
 }
 .side-box {
-    transform: scale(1,1) translateX(100vw);
-    transition: transform 0.5s;
+    transform: scale(1,1) translateX(50vw);
+    transition: transform 0.5s, opacity 0.5s;
     position: absolute;
+    opacity: 0;
     top: 0;
 }
 .side-box.open {
     transform: scale(1,1) translateX(0vw);
     position: absolute;
+    opacity: 1;
+}
+
+.sub-box {
+    display: none;
 }
 
 .box-wrapper {
@@ -306,7 +317,7 @@ h1, h2, h3, button {
     margin: 5px;
     min-height: 100px;
     position: relative;
-    border: 1px solid #272822;
+    border: 2px solid #272822;
     overflow: hidden;
 }
 .app-image {
@@ -362,6 +373,35 @@ h1, h2, h3, button {
 #exception {
     text-align: right;
     margin: 10px 0 0;
+}
+
+.link {
+    display: inline-flex;
+    margin: 0 15px;
+}
+.link a {
+    text-decoration: none;
+    color: #FD971F;
+    padding-left: 10px;
+    padding-top: 5px;
+    transition: color 0.2s;
+}
+.link a:hover {
+    color: #66D9EF;
+}
+
+.languages {
+
+}
+.languages ul {
+    padding-left: 0;
+}
+.languages ul li {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px 5px 0;
+    background: #75715E;
+    border-radius: 0.5em;
 }
 
 @media only screen and (max-width: 667px) {
