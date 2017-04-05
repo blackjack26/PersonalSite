@@ -34,6 +34,13 @@ h1, h2, h3, button {
     font-family: 'Ubuntu', sans-serif;
     font-weight: 300;
 }
+a {
+    color: #A1EFE4;
+    text-decoration: none;
+}
+a:hover {
+    color: #66D9EF;
+}
 .section-title {
     margin-top: 0;
 }
