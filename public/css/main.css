@@ -359,6 +359,7 @@ h1, h2, h3, button {
     transform: scale(1,1) translateX(0);
 
     position: relative;
+    top: 0;
 }
 .content-box.shift {
     -webkit-transform: scale(1,1) translateX(-100%);
@@ -378,8 +379,8 @@ h1, h2, h3, button {
 
     position: absolute;
     opacity: 0;
-    top: 0;
     margin-top: 0;
+    top: 0;
 }
 .side-box.open {
     -webkit-transform: scale(1,1) translateX(0);
@@ -544,6 +545,9 @@ h1, h2, h3, button {
 }
 
 @media only screen and (max-width: 667px) {
+    #home-content {
+        overflow-x: hidden;
+    }
     #name-n {
         font-size: 30px;
     }

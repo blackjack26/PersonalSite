@@ -226,23 +226,18 @@
             });
 
             $(".app-container").click(function(){
-                $(this).closest(".content-box").addClass("shift");
+                var $contBox = $(this).closest(".content-box");
+                $contBox.addClass("shift");
                 $("#project-side-box").addClass("open");
                 var box = $(this).data("box");
                 $(".sub-box").hide();
+
                 $("#" + box + "-box").fadeIn(500);
+                window.scrollTo(0,$("#project-side-box").offset().top - 10);
             });
 
             $("#back-btn").click(function(){
                 $("#projects").click();
-            });
-
-            var $body = $(document);
-            $body.bind('scroll', function() {
-                // "Disable" the horizontal scroll.
-                if ($body.scrollLeft() !== 0) {
-                    $body.scrollLeft(0);
-                }
             });
 
             if (!!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/) && navigator.sayswho.split(' ').pop() < 6.1) {
