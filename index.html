@@ -240,6 +240,10 @@
                 }
             });
 
+            if (!!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)) {
+                alert("Safari browser detected! Please note this site may not work properly. Use Chrome, Firefox, Edge, or IE.");
+            }
+
             fixCommandSize();
         });
 
