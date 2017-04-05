@@ -134,7 +134,7 @@ h1, h2, h3, button {
     top: 0;
     left: 0;
     width: 100%;
-    overflow-x: hidden;
+    overflow-x: visible;
 }
 #home-content.top {
     justify-content: flex-start;
