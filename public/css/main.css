@@ -49,6 +49,8 @@ h1, h2, h3, button {
 }
 .flexbox {
     display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
 
@@ -58,8 +60,10 @@ h1, h2, h3, button {
 }
 .box {
     -webkit-box-flex: 1;
-    -webkit-flex: 1 1;
-    flex: 1 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
 
     display: inline-block;
     text-align: center;
@@ -258,6 +262,8 @@ h1, h2, h3, button {
 
     position: relative;
     padding: 0px 10px;
+
+    width: -webkit-calc(100% - 20px);
     width: calc(100% - 20px);
     margin-bottom: 10px;
 }
@@ -265,13 +271,22 @@ h1, h2, h3, button {
 #section-links {
     display: none;
     max-width: 1000px;
+
+    width: -webkit-calc(100% - 20px);
     width: calc(100% - 20px);
+
     margin: 0 auto;
     padding: 10px;
 }
 
 #folder-box {
     display: none;
+}
+
+#folder-box.shown {
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: flex
 }
 
 .command {
@@ -332,6 +347,7 @@ h1, h2, h3, button {
     transition: transform 0.5s, opacity 0.5s;
 
     margin-bottom: 15px;
+    width: -webkit-calc(100% - 30px);
     width: calc(100% - 30px);
     opacity: 1;
 }
@@ -345,7 +361,7 @@ h1, h2, h3, button {
     position: relative;
 }
 .content-box.shift {
-    -webkit-transform: scale(1,1) translateX(-100vw);
+    -webkit-transform: scale(1,1) translateX(-100%);
     transform: scale(1,1) translateX(-100vw);
 
     -webkit-transition: -webkit-transform 0.8s, opacity 0.5s;
@@ -354,7 +370,7 @@ h1, h2, h3, button {
     opacity: 0;
 }
 .side-box {
-    -webkit-transform: scale(1,1) translatex(50vw);
+    -webkit-transform: scale(1,1) translatex(50%);
     transform: scale(1,1) translateX(50vw);
 
     -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
@@ -447,6 +463,8 @@ h1, h2, h3, button {
     transition: all 0.5s;
 
     padding: 5px 10px;
+
+    width: -webkit-cal(100% - 20px);
     width: calc(100% - 20px);
     background-color: rgba(0,0,0,0.75);
 

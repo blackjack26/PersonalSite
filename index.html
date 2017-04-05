@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="public/css/main.css" />
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="public/js/main.js"></script>
 </head>
 <body>
@@ -232,6 +233,10 @@
                 $("#" + box + "-box").fadeIn(500);
             });
 
+            $("#project-side-box").on("swiperight", function(){
+                $("#projects").click();
+            });
+
             var $body = $(document);
             $body.bind('scroll', function() {
                 // "Disable" the horizontal scroll.
@@ -302,7 +307,7 @@
                 top = top - 15;
             }
 
-            $("#identification").css("transform", "translate("+left+"px, "+top+"px) scale(0.8,0.8)");
+            $("#identification").css("transform", "translate(0px, "+top+"px) scale(0.8,0.8)");
 
             $("#about-btn").css({
                 transition: "all 0.7s",
@@ -317,13 +322,9 @@
                 $("#home-content").addClass("top");
                 $("#section-links").fadeIn(300, function(){
                     showText("#cmd1 .inpt", "ls -tr", 0, 100, function(){
-                        $("#folder-box .box").hide();
-                        $("#folder-box").css({
-                            display: "flex",
-                            display: "-webkit-flex",
-                            display: "-webkit-box"
-                        });
-                        $("#folder-box .box").fadeIn(300);
+                        $("#folder-box .box h1").hide();
+                        $("#folder-box").addClass("shown");
+                        $("#folder-box .box h1").fadeIn(300);
                         setTimeout(function(){
                             showContentBox("#welcome-box");
                         }, 300);
