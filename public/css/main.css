@@ -529,6 +529,20 @@ h1, h2, h3, button {
     border-radius: 0.5em;
 }
 
+#back-btn {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 10px 0px;
+    color: #FD971F;
+}
+#back-btn:hover {
+    cursor: pointer;
+    color: #66D9EF;
+}
+
 @media only screen and (max-width: 667px) {
     #name-n {
         font-size: 30px;

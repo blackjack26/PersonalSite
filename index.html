@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="public/css/main.css" />
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="public/js/main.js"></script>
 </head>
 <body>
@@ -104,6 +103,7 @@
                     </div>
 
                     <div id="project-side-box" class="content-box side-box">
+                        <span id="back-btn">&lsaquo;&nbsp; Back to Projects</span>
                         <div id="cog-rel-box" class="sub-box">
                             <h2 class="section-title">Cognitive Release</h2>
                             <p class="page-text">
@@ -233,7 +233,7 @@
                 $("#" + box + "-box").fadeIn(500);
             });
 
-            $("#project-side-box").on("swiperight", function(){
+            $("#back-btn").click(function(){
                 $("#projects").click();
             });
 
