@@ -587,7 +587,7 @@ a.symbol:before {
     opacity: 1;
 }
 
-#exception {
+.exception {
     text-align: right;
     margin: 10px 0 0;
 }
@@ -641,6 +641,79 @@ a.symbol:before {
 
 #social-links {
     text-align: center;
+}
+
+.about-box {
+    padding: 10px;
+    margin-top: 20px;
+    background-color: rgba(255,255,255,0.1);
+}
+.about-box .about-title {
+    margin: 0;
+}
+
+.info-wrapper {
+    display: flex;
+    align-items: flex-end;
+}
+.info {
+    display: inline-block;
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+}
+.info .info-value {
+    margin: 0;
+    border-bottom: 1px solid #E6DB74;
+    padding: 2px 10px;
+}
+.info .info-title {
+    margin: 0;
+    font-style: italic;
+    color: rgba(255,255,255,0.7);
+}
+
+#about-links {
+    text-align: center;
+}
+#about-education .exception {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+}
+
+.experience {
+    padding: 15px 10px;
+    border: 1px solid rgba(255,255,255,0.7);
+    margin-bottom: 20px;
+    margin-top: 20px;
+    position: relative;
+}
+.experience:before {
+    content:'';
+    position:absolute;
+    top:-1px; left:-1px;
+    border:1px solid #4C4C45;
+    height:100%;
+    width:100%;
+    border-radius: 10%;
+}
+.experience .experience-title {
+    text-align: center;
+    margin: 0;
+}
+.experience .experience-subtitle {
+    font-size: 14px;
+    font-style: italic;
+    text-align: center;
+    color: #FD971F;
+    margin: 0 0 5px;
+}
+.experience .experience-desc h4 {
+    margin: 0;
+    color: #E6DB74;
+}
+.experience .experience-desc ul {
+    margin: 0;
 }
 
 @media only screen and (max-width: 667px) {
