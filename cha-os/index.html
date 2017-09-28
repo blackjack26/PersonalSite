@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="author" content="Jack Grzechowiak"/>
+    <link rel="icon" href="public/images/chaos_alpha_logo.png"/>
+    <link rel="stylesheet" href="public/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="public/css/bulma.css" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaijaan" rel="stylesheet"/>
+    <link rel="stylesheet" href="public/css/tsos.css" type="text/css" media="screen"/>
+    <title>
+        ChaOS - TypeScript Operating System
+    </title>
+
+    <!-- Globals CONSTANTS and _Variables. Must included be first. -->
+    <script type="text/javascript" src="distrib/globals.js"></script>
+
+    <!-- Host (Virtual Machine / Hardware Simulation) Routines -->
+    <script type="text/javascript" src="distrib/host/control.js"></script>
+    <script type="text/javascript" src="distrib/host/devices.js"></script>
+    <script type="text/javascript" src="distrib/host/cpu.js"></script>
+    <script type="text/javascript" src="distrib/host/memory.js"></script>
+
+    <!-- Virtual OS Routines: Make sure Kernel code is last, since it needs those above it. -->
+    <script type="text/javascript" src="distrib/os/interrupt.js"></script>
+    <script type="text/javascript" src="distrib/os/canvastext.js"></script>
+    <script type="text/javascript" src="distrib/os/console.js"></script>
+    <script type="text/javascript" src="distrib/os/deviceDriver.js"></script>
+    <script type="text/javascript" src="distrib/os/deviceDriverKeyboard.js"></script>
+    <script type="text/javascript" src="distrib/os/queue.js"></script>
+    <script type="text/javascript" src="distrib/os/shell.js"></script>
+    <script type="text/javascript" src="distrib/os/shellCommand.js"></script>
+    <script type="text/javascript" src="distrib/os/userCommand.js"></script>
+    <script type="text/javascript" src="distrib/os/kernel.js"></script>
+    <script type="text/javascript" src="distrib/os/mmu.js"></script>
+    <script type="text/javascript" src="distrib/os/pcb.js"></script>
+
+    <!-- Other Routines -->
+    <script type="text/javascript" src="distrib/utils.js"></script>
+    <!-- Uncomment the line below to enable GLaDOS testing. -->
+    <!--script type="text/javascript" src="http://alanclasses.github.io/TSOS/test/glados-ip2.js"></script-->
+
+</head>
+
+<body onload="onDocumentLoad()" class="hero is-dark is-bold" style="overflow-y: auto;">
+<div class="hero-head">
+    <header class="nav">
+        <div class="container">
+            <div class="nav-left">
+                <a class="nav-item" id="title">
+                    <h1>ChaOS</h1>
+                </a>
+            </div>
+            <div class="nav-right nav-menu">
+                <p id="current-date" class="nav-item"></p>
+                <p class="nav-item">
+                    <button type="button" id="btnStartOS" name="brnStartOS"
+                            class="button" tabindex="0"
+                            onclick="TSOS.Control.hostBtnStartOS_click(this);">
+                        <i class="fa fa-power-off fa-fw" aria-hidden="true"></i>
+                    </button>
+                </p>
+                <p class="nav-item">
+                    <button type="button" id="btnHaltOS" name="brnHaltOS"
+                            class="button" tabindex="1" disabled
+                            onclick="TSOS.Control.hostBtnHaltOS_click(this);">
+                        <i class="fa fa-stop fa-fw" aria-hidden="true"></i>
+                    </button>
+                </p>
+                <p class="nav-item">
+                    <button type="button" id="btnReset" name="brnReset"
+                            class="button" tabindex="2" disabled
+                            onclick="TSOS.Control.hostBtnReset_click(this);">
+                        <i class="fa fa-repeat fa-fw" aria-hidden="true"></i>
+                    </button>
+                </p>
+                <div class="nav-item field has-addons">
+                    <p class="control">
+                        <button class="button" onclick="TSOS.Control.hostBtnSingleStep_click(this);"
+                                id="btnSingleStep" disabled>
+                            Single-Step:&nbsp;&nbsp;<span><b id="stepDisplay">OFF</b></span>
+                        </button>
+                    </p>
+                    <p class="control">
+                        <button class="button" onclick="TSOS.Control.hostBtnStep_click(this)"
+                                id="btnNextStep" disabled>
+                            <span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+<div id="message-wrapper">
+    <p id="status-message"></p>
+</div>
+<div class="hero-body">
+    <div class="columns" style="max-width: 1000px; margin: 0 auto">
+        <div class="column">
+            <div class="card" id="canvas-card">
+                <div id="canvas-wrapper" class="card-content"
+                     style="overflow-y: auto; padding: 0.5rem; background-color: #FDF6E3; max-height: 523px;">
+                    <canvas id="display"
+                            width="500px"
+                            height="500px"
+                            tabindex="3">
+                    </canvas>
+                </div>
+            </div><br/>
+            <div id="divCPU">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            CPU
+                        </p>
+                    </header>
+                    <div class="card-content" style="height: 100%; max-height: 120px">
+                        <table id="cpuTable" class="table is-fullwidth has-text-centered"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="right-column" class="column">
+            <div id="divLog">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Host Log
+                        </p>
+                    </header>
+                    <div class="card-content" style="height: 100%; max-height: 120px">
+                        <div id="taHostLog"></div>
+                    </div>
+                </div>
+            </div><br />
+            <div id="divProcesses">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Processes (PCBs)
+                        </p>
+                    </header>
+                    <div class="card-content" style="height: 100%; max-height: 120px">
+                        <table id="processTable" class="table is-fullwidth"></table>
+                        <p id="processLabel" class="has-text-centered"></p>
+                    </div>
+                </div>
+            </div><br/>
+            <div id="divMemory">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                             Memory
+                        </p>
+                    </header>
+                    <div class="card-content" style="height: 100%; max-height: 120px">
+                        <table class="table is-fullwidth" id="memoryTable"></table>
+                    </div>
+                </div>
+            </div><br/>
+            <div id="divUserProgramInput">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            User Program Input
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <textarea class="textarea" id="taProgramInput" style="height: 100%;">A9 00 8D EC 00 A9 00 8D EC 00 A9 00 8D ED 00 A9 00 8D ED 00 A9 00 8D EE 00 A9 00 8D EF 00 AD ED 00 8D FF 00 AE FF 00 A9 00 8D FF 00 EC FF 00 D0 BA AD EC 00 8D FF 00 A9 01 6D FF 00 8D EC 00 AD EC 00 8D FF 00 AE FF 00 A9 03 8D FF 00 EC FF 00 D0 05 A9 01 8D ED 00 A9 00 8D EE 00 A9 00 8D EF 00 AD EF 00 8D FF 00 AE FF 00 A9 00 8D FF 00 EC FF 00 D0 49 AD EE 00 8D FF 00 A9 01 6D FF 00 8D EE 00 AD EE 00 8D FF 00 AE FF 00 A9 02 8D FF 00 EC FF 00 D0 05 A9 01 8D EF 00 A9 F8 8D FF 00 A2 02 AC FF 00 FF AD EE 00 A2 01 8D FF 00 AC FF 00 FF A9 00 8D FF 00 A2 01 EC FF 00 D0 A4 A9 F1 8D FF 00 A2 02 AC FF 00 FF AD EC 00 A2 01 8D FF 00 AC FF 00 FF A9 EE 8D FF 00 A2 02 AC FF 00 FF A9 00 8D FF 00 A2 01 EC FF 00 D0 33 00 00 00 20 20 00 20 6F 75 74 65 72 00 20 69 6E 6E 65 72 00 00</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="hero-foot">
+    <p id="footer">
+        Copyright &copy; 2017 Jack Grzechowiak.
+    </p>
+</div>
+</body>
+</html>
