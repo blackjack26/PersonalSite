@@ -188,20 +188,51 @@ h3 {
 }
 
 .table td {
-    padding: 0 0.75em;
+    padding: 0 0.5em;
     text-align: center;
 }
 
+#diskTable td,
 #memoryTable td,
 #cpuTable tbody tr,
 #processTable tbody tr {
     font-family: "Consolas", serif;
 }
 
+#diskTable td {
+    text-align: left;
+    padding: 0;
+}
+#diskTable td .memory {
+
+}
+#diskTable td.key {
+    padding-left: 5px;
+}
+#diskTable td:not(.key) {
+    padding-left: 10px;
+}
+#diskTable tr:not(.unused) td .next-loc {
+    color: #276cda;
+    font-weight: bold;
+}
+#diskTable tr:not(.unused) td .next-loc:hover {
+    color: #96add1;
+}
+
+#diskTable tr:not(.unused) td .cf {
+    color: #1ca64c;
+    font-weight: bold;
+}
+#diskTable tr.unused td {
+    color: lightgray;
+}
+
 .nav-left, .nav-right {
     flex-basis: unset;
 }
 
+.selected-ir,
 .selected-code {
     font-weight: bold;
     color: #276cda;
@@ -209,4 +240,83 @@ h3 {
 .selected-mem {
     font-weight: bold;
     color: #00e7eb;
+}
+
+.mem-location {
+    cursor: pointer;
+    transition: font-weight 0.2s, color 0.2s;
+}
+.mem-location:hover {
+    font-weight: bold;
+    color: #cd0930;
+}
+.mem-location.breakpoint {
+    background-color: #CD0930;
+    color: white;
+}
+
+.log-msg {
+    display: inline-block;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.log-tags {
+    margin-bottom: 0!important;
+    display: inline-block;
+}
+.log-tags .tag {
+    margin-bottom: 0;
+}
+
+#start-icon {
+    font-size: 5rem;
+    transition: color 0.3s;
+}
+#start-icon:hover {
+    cursor: pointer;
+    color: #00d1b2;
+}
+#start-icon.zoom {
+    animation: zoomOut 0.5s ease-in forwards;
+}
+
+@keyframes zoomOut {
+    0% { transform: scale(1); opacity: 1; }
+    20% { transform: scale(1.2); }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+#os-view .hero-body,
+#os-view .hero-foot {
+    opacity: 0;
+}
+#os-view.show .hero-body {
+    animation: fadeIn 0.5s linear forwards;
+}
+
+#os-view.show .hero-foot {
+    animation: fadeIn 1s linear forwards;
+}
+
+#os-view .hero-head {
+    transform: translateY(-60px);
+    transition: 1s all;
+}
+#os-view .hero-head.show {
+    transform: translateY(0px);
+}
+
+#os-view .card {
+    transition: 0.75s all;
+    transform: scale(0);
+    transform-origin: 50% 50% 0;
+}
+#os-view .card.show {
+    transform: scale(1);
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }

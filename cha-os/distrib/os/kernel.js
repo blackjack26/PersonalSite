@@ -13,7 +13,7 @@
  ------------ */
 var TSOS;
 (function (TSOS) {
-    var Kernel = (function () {
+    var Kernel = /** @class */ (function () {
         function Kernel() {
         }
         //
@@ -36,9 +36,11 @@ var TSOS;
             _krnKeyboardDriver = new TSOS.DeviceDriverKeyboard(); // Construct it.
             _krnKeyboardDriver.driverEntry(); // Call the driverEntry() initialization routine.
             this.krnTrace(_krnKeyboardDriver.status);
-            //
-            // ... more?
-            //
+            // Load the File System Device Driver
+            this.krnTrace('Loading the file system device driver.');
+            _krnFileSystemDriver = new TSOS.DeviceDriverFileSystem();
+            _krnFileSystemDriver.driverEntry();
+            this.krnTrace(_krnFileSystemDriver.status);
             // Enable the OS Interrupts.  (Not the CPU clock interrupt, as that is done in the hardware sim.)
             this.krnTrace('Enabling the interrupts.');
             this.krnEnableInterrupts();
@@ -53,7 +55,7 @@ var TSOS;
         };
         Kernel.prototype.krnShutdown = function () {
             this.krnTrace('begin shutdown OS');
-            // TODO: Check for running processes.  If there are some, alert and stop. Else...
+            TSOS.PCB.removeAllProcesses();
             // ... Disable the Interrupts.
             this.krnTrace('Disabling the interrupts.');
             this.krnDisableInterrupts();
@@ -68,6 +70,7 @@ var TSOS;
              This is NOT the same as a TIMER, which causes an interrupt and is handled like other interrupts.
              This, on the other hand, is the clock pulse from the hardware / VM / host that tells the kernel
              that it has to look for interrupts and process them if it finds any.                           */
+            _Scheduler.cycle();
             // Check for an interrupt, are any. Page 560
             if (_KernelInterruptQueue.getSize() > 0) {
                 // Process the first interrupt on the interrupt queue.
@@ -75,7 +78,7 @@ var TSOS;
                 var interrupt = _KernelInterruptQueue.dequeue();
                 this.krnInterruptHandler(interrupt.irq, interrupt.params);
             }
-            else if (_CPU.isExecuting && (!_SingleStep || _ShouldStep)) {
+            else if (!_Scheduler.isSwitching && _CPU.isExecuting && (!_SingleStep || _ShouldStep)) {
                 _ShouldStep = false;
                 _CPU.cycle();
             }
@@ -113,6 +116,9 @@ var TSOS;
                     _krnKeyboardDriver.isr(params); // Kernel mode device driver
                     _StdIn.handleInput();
                     break;
+                case FILESYS_IRQ:
+                    _krnFileSystemDriver.isr(params);
+                    break;
                 case SYSTEMCALL_IRQ:
                     this.krnSystemCall(params);
                     break;
@@ -138,28 +144,58 @@ var TSOS;
         // - ReadFile
         // - WriteFile
         // - CloseFile
-        Kernel.prototype.krnSystemCall = function (type) {
+        Kernel.prototype.krnSystemCall = function (params) {
+            var type = params.type;
             switch (type) {
                 case 0 /* WRITE_CONSOLE */:
                     if (_CPU.Xreg == 0x01) {
-                        _StdOut.putText(_CPU.Yreg);
+                        this.sendToOutput(_CPU.Yreg);
                     }
                     else if (_CPU.Xreg == 0x02) {
                         var str = '';
                         var currAddr = _CPU.Yreg;
                         var ch = void 0;
-                        while ((ch = _MMU.getAddressValue(currAddr, 0)) != 0x00) {
+                        while ((ch = _MMU.getAddressValue(currAddr, _CPU.currentProcess.base)) != 0x00) {
                             str += String.fromCharCode(ch);
                             currAddr++;
                         }
-                        _StdOut.putText(str);
+                        this.sendToOutput(str);
                     }
                     break;
                 case 1 /* EXIT_PROCESS */:
                     _CPU.stopExecution();
                     break;
+                case 2 /* KILL_PROCESS */:
+                    if (_CPU.stopProcess(params.pid)) {
+                        _StdOut.putText("Killed process [PID " + params.pid + "].");
+                    }
+                    else {
+                        _StdOut.putText("Failed to kill process [PID " + params.pid + "].");
+                    }
+                    _StdOut.advanceLine();
+                    _OsShell.putPrompt();
+                    break;
+                case 3 /* CONTEXT_SWITCH */:
+                    if (_CPU.isExecuting) {
+                        _CPU.currentProcess.preempt();
+                    }
+                    _CPU.startProcess(TSOS.PCB.getProcess(params.pid));
+                    break;
                 default:
                     break;
+            }
+        };
+        // TODO: move to IO device?
+        Kernel.prototype.sendToOutput = function (str) {
+            var output = _CPU.currentProcess.redirectOutput;
+            if (output === '') {
+                _StdOut.putText(str);
+            }
+            else if (output === 'console') {
+                console.log(str);
+            }
+            else if (output === 'alert') {
+                alert(str);
             }
         };
         //
@@ -182,7 +218,7 @@ var TSOS;
             }
         };
         Kernel.prototype.krnTrapError = function (msg) {
-            TSOS.Control.hostLog('OS ERROR - TRAP: ' + msg);
+            TSOS.Control.hostLog('<b>OS ERROR - TRAP:</b> ' + msg);
             // Self-destruct sequence initiated
             _StdOut.putText(msg);
             _StdOut.advanceLine();

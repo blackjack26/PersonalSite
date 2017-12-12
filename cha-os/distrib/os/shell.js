@@ -13,7 +13,7 @@
 // TODO: Write a base class / prototype for system services and let Shell inherit from it.
 var TSOS;
 (function (TSOS) {
-    var Shell = (function () {
+    var Shell = /** @class */ (function () {
         function Shell() {
             // Properties
             this.promptStr = '>';
@@ -76,14 +76,50 @@ var TSOS;
             sc = new TSOS.ShellCommand(this.shellParadox, 'paradox', '- Initiates kernel destruction');
             this.commandList[this.commandList.length] = sc;
             // load
-            sc = new TSOS.ShellCommand(this.shellLoad, 'load', '- Loads the user program input');
+            sc = new TSOS.ShellCommand(this.shellLoad, 'load', '- [priority] Loads the user program input');
             this.commandList[this.commandList.length] = sc;
             // run
             sc = new TSOS.ShellCommand(this.shellRun, 'run', '<pid> - runs the given process');
             this.commandList[this.commandList.length] = sc;
             // ps  - list the running processes and their IDs
+            sc = new TSOS.ShellCommand(this.shellPs, 'ps', '- Displays all active processes');
+            this.commandList[this.commandList.length] = sc;
             // kill <id> - kills the specified process id.
-            //
+            sc = new TSOS.ShellCommand(this.shellKill, 'kill', '<pid> - kills the given process');
+            this.commandList[this.commandList.length] = sc;
+            // clearmem
+            sc = new TSOS.ShellCommand(this.shellClearmem, 'clearmem', '- Clears all memory segments');
+            this.commandList[this.commandList.length] = sc;
+            // runall
+            sc = new TSOS.ShellCommand(this.shellRunall, 'runall', '- Runs all loaded programs');
+            this.commandList[this.commandList.length] = sc;
+            // quantum
+            sc = new TSOS.ShellCommand(this.shellQuantum, 'quantum', '- <number> Sets the quantum for round robin');
+            this.commandList[this.commandList.length] = sc;
+            // format
+            sc = new TSOS.ShellCommand(this.shellFormat, 'format', '- [-quick | -full] formats the hard disk');
+            this.commandList[this.commandList.length] = sc;
+            // create
+            sc = new TSOS.ShellCommand(this.shellCreate, 'create', '- <filename> creates a file with given name');
+            this.commandList[this.commandList.length] = sc;
+            // read
+            sc = new TSOS.ShellCommand(this.shellRead, 'read', '- <filename> reads data from the given file');
+            this.commandList[this.commandList.length] = sc;
+            // write
+            sc = new TSOS.ShellCommand(this.shellWrite, 'write', '- <filename> "data" writes the data to the given file');
+            this.commandList[this.commandList.length] = sc;
+            // delete
+            sc = new TSOS.ShellCommand(this.shellDelete, 'delete', '- <filename> deletes the given file');
+            this.commandList[this.commandList.length] = sc;
+            // ls
+            sc = new TSOS.ShellCommand(this.shellLs, 'ls', '- [-l] lists the current files');
+            this.commandList[this.commandList.length] = sc;
+            // getschedule
+            sc = new TSOS.ShellCommand(this.shellGetSchedule, 'getschedule', '- gets the current scheduling type');
+            this.commandList[this.commandList.length] = sc;
+            // setschedule
+            sc = new TSOS.ShellCommand(this.shellSetSchedule, 'setschedule', '- <rr | fcfs | priority> sets the scheduling type');
+            this.commandList[this.commandList.length] = sc;
             // Display the initial prompt.
             this.putPrompt();
         };
@@ -279,17 +315,17 @@ var TSOS;
                     case 'trace':
                         _StdOut.putText('Turns the OS trace on or off.');
                         _StdOut.advanceLine();
-                        _StdOut.putText('Usage: trace <on | off>.');
+                        _StdOut.putText('Usage: \0trace <on | off>\f');
                         break;
                     case 'rot13':
                         _StdOut.putText('Does rot13 obfuscation on the given argument');
                         _StdOut.advanceLine();
-                        _StdOut.putText('Usage: rot13 <string>');
+                        _StdOut.putText('Usage: \0rot13 <string>\f');
                         break;
                     case 'prompt':
                         _StdOut.putText('Sets the CLI prompt.');
                         _StdOut.advanceLine();
-                        _StdOut.putText('Usage: prompt <string>');
+                        _StdOut.putText('Usage: \0prompt <string>\f');
                         break;
                     case 'date':
                         _StdOut.putText('Shows the current date and time.');
@@ -303,32 +339,104 @@ var TSOS;
                     case 'status':
                         _StdOut.putText('Updates the host display with a status message');
                         _StdOut.advanceLine();
-                        _StdOut.putText('Usage: status <string>');
+                        _StdOut.putText('Usage: \0status <string>\f');
                         break;
                     case 'history':
                         _StdOut.putText('Displays a list of commands the user has executed');
                         _StdOut.advanceLine();
-                        _StdOut.putText('Usage: history [number]');
+                        _StdOut.putText('Usage: \0history [number]\f');
                         _StdOut.advanceLine();
                         _StdOut.putText('  [number] - (Optional) how far back to into history');
                         break;
                     case 'recall':
                         _StdOut.putText('Recalls a command based on it\'s historical number.');
                         _StdOut.advanceLine();
-                        _StdOut.putText('Usage: recall <number>');
+                        _StdOut.putText('Usage: \0recall <number>\f');
                         break;
                     case 'paradox':
                         _StdOut.putText('Only use this in case of rouge AI');
                         break;
                     case 'load':
                         _StdOut.putText('Loads a user program into the OS');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('Usage: \0load [priority]\f');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('  [priority] - (Optional) the priority of the process for scheduling');
+                        break;
+                    case 'run':
+                        _StdOut.putText('Runs a process by the given process ID');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('Usage: \0run <pid>\f');
+                        break;
+                    case 'ps':
+                        _StdOut.putText('Displays all active processes');
+                        break;
+                    case 'kill':
+                        _StdOut.putText('Kills the given processes');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('Usage: \0kill <pid> [<pid> ...]\f');
+                        break;
+                    case 'clearmem':
+                        _StdOut.putText('Clears all memory segments');
+                        break;
+                    case 'runall':
+                        _StdOut.putText('Runs all the currently loaded programs');
+                        break;
+                    case 'quantum':
+                        _StdOut.putText('Sets the quantum for round robin scheduling');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('Usage: \0quantum <number>\f');
+                        break;
+                    case 'format':
+                        _StdOut.putText('Formats this disk to allow file creation');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('Usage: \0format [-quick | -full]\f');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('  [-quick] - (Optional) marks all of disk as free');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('  [-full] - (Optional) clears all data off disk');
+                        break;
+                    case 'create':
+                        _StdOut.putText('Creates a file with the given name');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('Usage: \0create <filename>\f');
+                        break;
+                    case 'read':
+                        _StdOut.putText('Reads data from the given file');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('Usage: \0read <filename>\f');
+                        break;
+                    case 'write':
+                        _StdOut.putText('Writes data to the given file');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('Usage: \0write <filename> "data"\f');
+                        break;
+                    case 'delete':
+                        _StdOut.putText('Deletes the given file');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('Usage: \0delete <filename>\f');
+                        break;
+                    case 'ls':
+                        _StdOut.putText('Lists the current files');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('Usage: \0ls [-l]\f');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('  [-l] - (Optional) displays file size and creation date');
+                        break;
+                    case 'getschedule':
+                        _StdOut.putText('Gets the current scheduling type');
+                        break;
+                    case 'setschedule':
+                        _StdOut.putText('Sets the scheduling type');
+                        _StdOut.advanceLine();
+                        _StdOut.putText('Usage: \0setschedule <rr | fcfs | priority>\f');
                         break;
                     default:
                         _StdOut.putText('No manual entry for ' + args[0] + '.');
                 }
             }
             else {
-                _StdOut.putText('Usage: man <topic>  Please supply a topic.');
+                _StdOut.putText('Usage: \0man <topic>\f  Please supply a topic.');
             }
         };
         Shell.prototype.shellTrace = function (args) {
@@ -349,11 +457,11 @@ var TSOS;
                         _StdOut.putText('Trace OFF');
                         break;
                     default:
-                        _StdOut.putText('Invalid arguement.  Usage: trace <on | off>.');
+                        _StdOut.putText('Invalid arguement.  Usage: \0trace <on | off>\f.');
                 }
             }
             else {
-                _StdOut.putText('Usage: trace <on | off>');
+                _StdOut.putText('Usage: \0trace <on | off>\f');
             }
         };
         Shell.prototype.shellRot13 = function (args) {
@@ -362,7 +470,7 @@ var TSOS;
                 _StdOut.putText(args.join(' ') + ' = \'' + TSOS.Utils.rot13(args.join(' ')) + '\'');
             }
             else {
-                _StdOut.putText('Usage: rot13 <string>  Please supply a string.');
+                _StdOut.putText('Usage: \0rot13 <string>\f  Please supply a string.');
             }
         };
         Shell.prototype.shellPrompt = function (args) {
@@ -370,7 +478,7 @@ var TSOS;
                 _OsShell.promptStr = args[0];
             }
             else {
-                _StdOut.putText('Usage: prompt <string>  Please supply a string.');
+                _StdOut.putText('Usage: \0prompt <string>\f  Please supply a string.');
             }
         };
         Shell.prototype.shellDate = function (args) {
@@ -397,7 +505,7 @@ var TSOS;
                 TSOS.Control.hostUpdateStatus(args.join(' '));
             }
             else {
-                _StdOut.putText('Usage: status <string>  Please supply a string.');
+                _StdOut.putText('Usage: \0status <string>\f  Please supply a string.');
             }
         };
         Shell.prototype.shellHistory = function (args) {
@@ -433,7 +541,7 @@ var TSOS;
                 // when recalling, other recall commands are omitted
                 var noRecall = _OsShell.commandHistory.filter(function (value) { return value.indexOf('recall') !== 0; });
                 if (isNaN(num)) {
-                    _StdOut.putText('Usage: recall <number>  Please supply a number');
+                    _StdOut.putText('Usage: \0recall <number>\f  Please supply a number');
                 }
                 else if (num < 0 || num >= noRecall.length) {
                     _StdOut.putText('Please supply a valid history number.');
@@ -446,7 +554,7 @@ var TSOS;
                 }
             }
             else {
-                _StdOut.putText('Usage: recall <number>  Please supply a number');
+                _StdOut.putText('Usage: \0recall <number>\f  Please supply a number');
             }
         };
         Shell.prototype.shellParadox = function (args) {
@@ -492,19 +600,33 @@ var TSOS;
             }
         };
         Shell.prototype.shellLoad = function (args) {
+            var priority = Number.MAX_VALUE;
+            if (args.length > 0) {
+                var num = Number(args[0]);
+                if (isNaN(num)) {
+                    _StdOut.putText("Priority must be a number.");
+                    return;
+                }
+                priority = num;
+            }
             var input = TSOS.Control.getProgramInput();
             var validProgram = _OsShell.validateProgram(input);
             if (validProgram != null) {
                 var pcb = new TSOS.PCB();
-                _MMU.load(validProgram, pcb);
-                TSOS.Control.updateMemoryDisplay();
-                _StdOut.putText("Program loaded [PID " + pcb.pid + "].");
+                pcb.priority = priority;
+                if (_MMU.load(validProgram, pcb)) {
+                    TSOS.Control.updateMemoryDisplay();
+                    _StdOut.putText("Program loaded [PID " + pcb.pid + "].");
+                }
+                else {
+                    _StdOut.putText("Unable to load program.");
+                }
             }
         };
         Shell.prototype.shellRun = function (args) {
             // Missing args
             if (args.length <= 0) {
-                _StdOut.putText('Usage: run <pid>  Please supply a PID');
+                _StdOut.putText('Usage: \0run <pid>\f  Please supply a PID');
                 return;
             }
             // Invalid PID
@@ -513,23 +635,188 @@ var TSOS;
                 _StdOut.putText('PID must be a number.');
                 return;
             }
-            // Process already being executed
-            // TODO: remove when adding scheduler
-            if (_CPU.isExecuting) {
-                _StdOut.putText('A process already running, please wait.');
-                return;
-            }
             // Assure proper state changes
             var process = TSOS.PCB.getProcess(pid);
             if (!process || !process.ready()) {
                 _StdOut.putText("Cannot find process [PID " + pid + "]. Please load program.");
                 return;
             }
+            if (args[1] == '>' || args[1] == '&>') {
+                process.redirectOutput = args[2];
+            }
             TSOS.Control.updateProcessDisplay();
-            if (!_CPU.beginExecution(process)) {
-                _StdOut.putText("Process [PID " + pid + "] cannot be run.");
+        };
+        Shell.prototype.shellKill = function (args) {
+            // Proper argument lengths
+            if (args.length < 1) {
+                _StdOut.putText("Usage: \0kill <pid>\f  Please supply a PID");
                 return;
             }
+            for (var i = 0; i < args.length; i++) {
+                var pid = Number(args[i]);
+                if (isNaN(pid)) {
+                    _StdOut.putText("The PID should be a number.");
+                    return;
+                }
+                else if (TSOS.PCB.getProcess(pid) == null) {
+                    _StdOut.putText("Process [PID " + pid + "] does not exist.");
+                    return;
+                }
+                _StdOut.putText("Killing process [PID " + pid + "]...");
+                _KernelInterruptQueue.enqueue(new TSOS.Interrupt(SYSTEMCALL_IRQ, { type: 2 /* KILL_PROCESS */, pid: pid }));
+            }
+        };
+        Shell.prototype.shellClearmem = function (args) {
+            TSOS.PCB.removeAllProcesses();
+            _MMU.clearMemory();
+        };
+        Shell.prototype.shellPs = function (args) {
+            var processes = TSOS.PCB.getAvailableProcesses();
+            var spacesToState = 7;
+            if (processes.length > 0) {
+                _StdOut.putText("PID    State");
+                _StdOut.advanceLine();
+                _StdOut.putText("------------");
+                _StdOut.advanceLine();
+            }
+            TSOS.PCB.getAvailableProcesses().forEach(function (ps) {
+                var pidStr = "" + ps.pid;
+                var spaces = "";
+                for (var i = pidStr.length; i < spacesToState; i++)
+                    spaces += " ";
+                _StdOut.putText(pidStr + spaces + ps.state);
+                _StdOut.advanceLine();
+            });
+        };
+        Shell.prototype.shellRunall = function (args) {
+            TSOS.PCB.getAvailableProcesses().forEach(function (ps) {
+                ps.ready();
+            });
+            TSOS.Control.updateProcessDisplay();
+        };
+        Shell.prototype.shellQuantum = function (args) {
+            if (args.length < 1) {
+                _StdOut.putText("Usage: \0quantum <number>\f   Please supply a quantum number");
+                return;
+            }
+            var num = Number(args[0]);
+            if (isNaN(num) || num <= 0) {
+                _StdOut.putText("Invalid quantum number specified.");
+                return;
+            }
+            _Scheduler.quantum = num;
+        };
+        Shell.prototype.shellFormat = function (args) {
+            var currDiskProcs = TSOS.PCB.getProcessByState([_State.READY, _State.RUNNING], TSOS.PCB.sortByPreemptTime)
+                .filter(function (proc) { return !proc.inMemory; });
+            if (currDiskProcs.length > 0) {
+                _StdOut.putText("Cannot format disk while processes are running.");
+                return;
+            }
+            var format = args.length > 0 ? args[0] : '';
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FILESYS_IRQ, { command: 'format', file: format, data: '' }));
+            _OsShell.hidePrompt = true;
+        };
+        Shell.prototype.shellCreate = function (args) {
+            if (args.length < 1) {
+                _StdOut.putText("Usage: \0create <filename>\f   Please supply a filename");
+                return;
+            }
+            var filename = args[0];
+            // Check for invalid characters
+            if (filename.match(/[~%#&*\[\]\\:<>?!/'",]/g)) {
+                _StdOut.putText("Filename contains invalid characters.");
+                return;
+            }
+            // Cannot end a file with a period
+            if (filename.indexOf('.') === filename.length - 1) {
+                _StdOut.putText("Filename cannot end with a period.");
+                return;
+            }
+            if (filename.length > 55) {
+                _StdOut.putText("Filename is too long. Must be 55 characters or less.");
+                return;
+            }
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FILESYS_IRQ, { command: 'create', file: filename, data: '' }));
+            _OsShell.hidePrompt = true;
+        };
+        Shell.prototype.shellWrite = function (args) {
+            if (args.length < 2) {
+                _StdOut.putText("Usage: \0write <filename> \"data\"\f   Please supply a filename and data");
+                return;
+            }
+            var filename = args[0];
+            if (filename.indexOf('~') === 0) {
+                _StdOut.putText("This file cannot be edited.");
+                return;
+            }
+            var data = "";
+            for (var i = 1; i < args.length; i++) {
+                data += args[i];
+                if (i != args.length - 1)
+                    data += " ";
+            }
+            if (data[0] != "\"" && data[data.length - 1] != "\"") {
+                _StdOut.putText("Invalid data - Usage: \0write <filename> \"data\"\f.");
+                return;
+            }
+            data = data.substring(1, data.length - 1);
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FILESYS_IRQ, { command: 'write', file: filename, data: data }));
+            _OsShell.hidePrompt = true;
+        };
+        Shell.prototype.shellRead = function (args) {
+            if (args.length < 1) {
+                _StdOut.putText("Usage: \0read <filename>\f   Please supply a filename");
+                return;
+            }
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FILESYS_IRQ, { command: 'read', file: args[0], data: '' }));
+            _OsShell.hidePrompt = true;
+        };
+        Shell.prototype.shellDelete = function (args) {
+            if (args.length < 1) {
+                _StdOut.putText("Usage: \0delete <filename>\f   Please supply a filename");
+                return;
+            }
+            var filename = args[0];
+            if (filename.indexOf('~') === 0) {
+                _StdOut.putText("This file cannot be deleted.");
+                return;
+            }
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FILESYS_IRQ, { command: 'del', file: filename, data: '' }));
+            _OsShell.hidePrompt = true;
+        };
+        Shell.prototype.shellLs = function (args) {
+            var params = args.length > 0 ? args[0] : '';
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FILESYS_IRQ, { command: 'list', file: params, data: '' }));
+            _OsShell.hidePrompt = true;
+        };
+        Shell.prototype.shellGetSchedule = function (args) {
+            _StdOut.putText("Current Schedule: \0" + _Scheduler.scheduleType + "\f");
+        };
+        Shell.prototype.shellSetSchedule = function (args) {
+            if (args.length < 1) {
+                _StdOut.putText("Usage: \0setschedule <rr | fcfs | priority>\f   Please supply an algorithm");
+                return;
+            }
+            var valid = ['rr', 'fcfs', 'priority'];
+            var algo = args[0].toLowerCase();
+            if (valid.indexOf(algo) < 0) {
+                _StdOut.putText("Usage: \0setschedule <rr | fcfs | priority>\f   Please supply a valid algorithm");
+                return;
+            }
+            switch (algo) {
+                case 'rr':
+                    _Scheduler.scheduleType = TSOS.Scheduler.Type.ROUND_ROBIN;
+                    break;
+                case 'fcfs':
+                    _Scheduler.scheduleType = TSOS.Scheduler.Type.FCFS;
+                    break;
+                case 'priority':
+                    _Scheduler.scheduleType = TSOS.Scheduler.Type.PRIORITY;
+                    break;
+            }
+            TSOS.Control.updateScheduleDisplay();
+            _StdOut.putText("Schedule changed to \0" + _Scheduler.scheduleType + "\f");
         };
         return Shell;
     }());

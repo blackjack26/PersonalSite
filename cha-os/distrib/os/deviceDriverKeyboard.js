@@ -20,7 +20,7 @@ var __extends = (this && this.__extends) || (function () {
 var TSOS;
 (function (TSOS) {
     // Extends DeviceDriver
-    var DeviceDriverKeyboard = (function (_super) {
+    var DeviceDriverKeyboard = /** @class */ (function (_super) {
         __extends(DeviceDriverKeyboard, _super);
         function DeviceDriverKeyboard() {
             // Override the base method pointers.
@@ -43,7 +43,7 @@ var TSOS;
             var keyCode = params[0];
             var isShifted = params[1];
             var isCtrl = params[2];
-            _Kernel.krnTrace('Key code:' + keyCode + ' shifted:' + isShifted + ' ctrl:' + isCtrl);
+            _Kernel.krnTrace('Key code: ' + keyCode + ', Shifted: ' + isShifted + ', Ctrl:' + isCtrl);
             var chr = '';
             if (isCtrl) {
                 if (keyCode === 67) {
@@ -55,7 +55,7 @@ var TSOS;
             }
             else {
                 // Check to see if we even want to deal with the key that was pressed.
-                if (((keyCode >= 65) && (keyCode <= 90)) ||
+                if (((keyCode >= 65) && (keyCode <= 90)) || // A..Z
                     ((keyCode >= 97) && (keyCode <= 123))) {
                     // Determine the character we want to display.
                     // Assume it's lowercase...
@@ -66,9 +66,9 @@ var TSOS;
                     }
                     // TODO: Check for caps-lock and handle as shifted if so.
                 }
-                else if ((keyCode == 32) ||
-                    (keyCode == 13) ||
-                    (keyCode === 8) ||
+                else if ((keyCode == 32) || // space
+                    (keyCode == 13) || // enter
+                    (keyCode === 8) || // backspace
                     (keyCode === 9)) {
                     chr = String.fromCharCode(keyCode);
                 }
@@ -111,7 +111,7 @@ var TSOS;
                         }
                     }
                 }
-                else if ((keyCode === 38) ||
+                else if ((keyCode === 38) || // up arrow
                     (keyCode === 40)) {
                     // convert to Unicode
                     chr = String.fromCharCode(keyCode + 2153);

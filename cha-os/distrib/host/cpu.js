@@ -15,7 +15,7 @@
  ------------ */
 var TSOS;
 (function (TSOS) {
-    var Cpu = (function () {
+    var Cpu = /** @class */ (function () {
         function Cpu(PC, IR, Acc, Xreg, Yreg, Zflag, isExecuting) {
             if (PC === void 0) { PC = 0; }
             if (IR === void 0) { IR = null; }
@@ -47,18 +47,32 @@ var TSOS;
         };
         Cpu.prototype.cycle = function () {
             _Kernel.krnTrace('CPU cycle');
-            // TODO: Accumulate CPU usage and profiling statistics here.
-            // Do the real work here. Be sure to set this.isExecuting appropriately.
-            var code = _MMU.getAddressValue(this.currentProcess.PC, 0);
-            this.executeOpCode(code);
-            if (this.isExecuting && code != 0x00)
-                this.currentProcess.IR = _MMU.getAddressValue(this.currentProcess.PC, 0);
-            this.updateDisplay();
+            _Scheduler.bursts++;
+            var toggledStep = false;
+            var code = _MMU.getAddressValue(this.PC, this.currentProcess.base);
+            if (!_SingleStep) {
+                var nextPCs_1 = [this.PC];
+                for (var i = 1; i <= TSOS.Control.getMemShift(code); i++) {
+                    nextPCs_1.push((this.PC + i) % _FixedSegmentLength);
+                }
+                nextPCs_1 = nextPCs_1.map(function (pc) { return TSOS.Utils.toHexDigit(pc, 2); });
+                if (_Breakpoints.some(function (bp) { return nextPCs_1.indexOf(bp) > -1; })) {
+                    TSOS.Control.singleStep(true);
+                    toggledStep = true;
+                }
+            }
+            if (!toggledStep) {
+                this.executeOpCode(code);
+                if (this.isExecuting && code != 0x00)
+                    this.IR = _MMU.getAddressValue(this.PC, this.currentProcess.base);
+                this.updateDisplay();
+                _Scheduler.updateStats();
+            }
         };
         /**
          * Sync the information from the current process
          */
-        Cpu.prototype.sync = function () {
+        Cpu.prototype.syncWithPCB = function () {
             var _a = this.currentProcess, PC = _a.PC, IR = _a.IR, Acc = _a.Acc, Xreg = _a.Xreg, Yreg = _a.Yreg, Zflag = _a.Zflag;
             this.PC = PC;
             this.IR = IR;
@@ -68,78 +82,113 @@ var TSOS;
             this.Zflag = Zflag;
         };
         Cpu.prototype.updateDisplay = function () {
-            this.sync();
             TSOS.Control.updateProcessDisplay();
             TSOS.Control.updateMemoryDisplay();
             TSOS.Control.updateCpuDisplay();
         };
-        Cpu.prototype.beginExecution = function (pcb) {
-            if (pcb.start()) {
-                this.currentProcess = pcb;
-                this.currentProcess.start();
-                this.isExecuting = true;
-                this.currentProcess.IR = _MMU.getAddressValue(this.currentProcess.PC, 0);
-                this.updateDisplay();
+        Cpu.prototype.startProcess = function (pcb) {
+            // If not in memory, swap
+            if (!pcb.inMemory) {
+                // If nothing available, roll in then roll out
+                if (!_MMU.hasSegmentsAvailable()) {
+                    var rollInPid = this.currentProcess != null ? this.currentProcess.pid : 0;
+                    _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FILESYS_IRQ, { command: 'rollIn', file: rollInPid, data: '' }));
+                }
+                _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FILESYS_IRQ, { command: 'rollOut', file: pcb.pid, data: 'start' }));
                 return true;
             }
-            return false;
+            else {
+                if (pcb.start()) {
+                    this.currentProcess = pcb;
+                    this.currentProcess.start();
+                    this.syncWithPCB();
+                    this.isExecuting = true;
+                    this.IR = _MMU.getAddressValue(this.PC, this.currentProcess.base);
+                    this.updateDisplay();
+                    _Scheduler.isSwitching = false;
+                    return true;
+                }
+                return false;
+            }
         };
+        /**
+         * Stops execution of the current process
+         */
         Cpu.prototype.stopExecution = function () {
-            if (this.currentProcess.stop()) {
-                this.reset();
+            if (this.currentProcess != null) {
+                this.stopProcess(this.currentProcess.pid);
+            }
+        };
+        Cpu.prototype.stopProcess = function (pid) {
+            var success = false;
+            if (this.currentProcess && this.currentProcess.pid === pid) {
+                this.currentProcess.isTerminating = true;
+                this.currentProcess.stop();
                 this.updateDisplay();
                 this.currentProcess = null;
-                return true;
+                success = true;
             }
-            return false;
+            else {
+                var proc = TSOS.PCB.getProcess(pid);
+                success = proc.stop();
+            }
+            if (this.currentProcess == null) {
+                this.isExecuting = false;
+            }
+            // const diskProcesses = PCB.getAvailableProcesses().filter(proc => !proc.inMemory);
+            // if (diskProcesses.length > 0) {
+            //     const proc = diskProcesses[0];
+            //     _KernelInterruptQueue.enqueue(new TSOS.Interrupt(FILESYS_IRQ, { command: 'rollOut', file: proc.pid, data: '' }));
+            // }
+            return success;
         };
         Cpu.prototype.loadAccWithConst = function () {
-            this.currentProcess.Acc = _MMU.getAddressValue(this.next(), 0);
+            this.Acc = _MMU.getAddressValue(this.next(), this.currentProcess.base);
         };
         Cpu.prototype.loadAccFromMem = function () {
-            this.currentProcess.Acc = _MMU.getAddressValue(this.nextTwo(), 0);
+            this.Acc = _MMU.getAddressValue(this.nextTwo(), this.currentProcess.base);
         };
         Cpu.prototype.storeAccInMem = function () {
-            _MMU.setAddressValue(this.nextTwo(), this.currentProcess.Acc, 0);
+            _MMU.setAddressValue(this.nextTwo(), this.Acc, this.currentProcess.base);
         };
         Cpu.prototype.addWithCarry = function () {
-            this.currentProcess.Acc += _MMU.getAddressValue(this.nextTwo(), 0);
+            this.Acc += _MMU.getAddressValue(this.nextTwo(), this.currentProcess.base);
             // The largest the accumulator will go is 0xFF
-            this.currentProcess.Acc %= 0x100;
+            this.Acc %= 0x100;
         };
         Cpu.prototype.loadXregWithConst = function () {
-            this.currentProcess.Xreg = _MMU.getAddressValue(this.next(), 0);
+            this.Xreg = _MMU.getAddressValue(this.next(), this.currentProcess.base);
         };
         Cpu.prototype.loadXregFromMem = function () {
-            this.currentProcess.Xreg = _MMU.getAddressValue(this.nextTwo(), 0);
+            this.Xreg = _MMU.getAddressValue(this.nextTwo(), this.currentProcess.base);
         };
         Cpu.prototype.loadYregWithConst = function () {
-            this.currentProcess.Yreg = _MMU.getAddressValue(this.next(), 0);
+            this.Yreg = _MMU.getAddressValue(this.next(), this.currentProcess.base);
         };
         Cpu.prototype.loadYregFromMem = function () {
-            this.currentProcess.Yreg = _MMU.getAddressValue(this.nextTwo(), 0);
+            this.Yreg = _MMU.getAddressValue(this.nextTwo(), this.currentProcess.base);
         };
         Cpu.prototype.breakSystemCall = function () {
-            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(SYSTEMCALL_IRQ, 1 /* EXIT_PROCESS */));
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(SYSTEMCALL_IRQ, { type: 1 /* EXIT_PROCESS */ }));
             this.currentProcess.isTerminating = true;
         };
         Cpu.prototype.compareMemToXreg = function () {
-            var equal = this.currentProcess.Xreg == _MMU.getAddressValue(this.nextTwo(), 0);
-            this.currentProcess.Zflag = equal ? 1 : 0;
+            var equal = this.Xreg == _MMU.getAddressValue(this.nextTwo(), this.currentProcess.base);
+            this.Zflag = equal ? 1 : 0;
         };
         Cpu.prototype.branchIfZero = function () {
             var shift = this.next();
-            if (this.currentProcess.Zflag == 0) {
-                this.currentProcess.PC += _MMU.getAddressValue(shift, 0);
+            if (this.Zflag == 0) {
+                this.PC += _MMU.getAddressValue(shift, this.currentProcess.base);
             }
         };
         Cpu.prototype.incrementValue = function () {
             var addr = this.nextTwo();
-            var newVal = _MMU.getAddressValue(addr, 0) + 1;
-            _MMU.setAddressValue(addr, newVal, 0);
+            var newVal = _MMU.getAddressValue(addr, this.currentProcess.base) + 1;
+            _MMU.setAddressValue(addr, newVal, this.currentProcess.base);
         };
         Cpu.prototype.writeToConsole = function () {
-            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(SYSTEMCALL_IRQ, 0 /* WRITE_CONSOLE */));
+            _KernelInterruptQueue.enqueue(new TSOS.Interrupt(SYSTEMCALL_IRQ, { type: 0 /* WRITE_CONSOLE */ }));
         };
         Cpu.prototype.executeOpCode = function (opCode) {
             switch (opCode) {
@@ -200,16 +249,16 @@ var TSOS;
          * @returns {number}
          */
         Cpu.prototype.next = function () {
-            this.currentProcess.PC = (this.currentProcess.PC + 1) % _FixedSegmentLength;
-            return this.currentProcess.PC;
+            this.PC = (this.PC + 1) % _FixedSegmentLength;
+            return this.PC;
         };
         /**
          * Gets the value at the next two address locations and returns
          * the combined number (flipped little-endian)
          */
         Cpu.prototype.nextTwo = function () {
-            var n1 = TSOS.Utils.toHexDigit(_MMU.getAddressValue(this.next(), 0), 2);
-            var n2 = TSOS.Utils.toHexDigit(_MMU.getAddressValue(this.next(), 0), 2);
+            var n1 = TSOS.Utils.toHexDigit(_MMU.getAddressValue(this.next(), this.currentProcess.base), 2);
+            var n2 = TSOS.Utils.toHexDigit(_MMU.getAddressValue(this.next(), this.currentProcess.base), 2);
             // n2 then n1 because of little-endian style
             return TSOS.Utils.toDecimal(n2 + n1);
         };

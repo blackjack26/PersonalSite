@@ -18,7 +18,7 @@
  * ----------------- */
 var TSOS;
 (function (TSOS) {
-    var CanvasTextFunctions = (function () {
+    var CanvasTextFunctions = /** @class */ (function () {
         function CanvasTextFunctions() {
         }
         CanvasTextFunctions.letter = function (ch) {
@@ -66,7 +66,19 @@ var TSOS;
                 }
             }
             for (var i = 0; i < len; i++) {
-                var c = CanvasTextFunctions.letter(str.charAt(i));
+                var chr = str.charAt(i);
+                if (chr === '\0')
+                    this.isImportant = true;
+                if (chr === '\f')
+                    this.isImportant = false;
+                if (this.isImportant)
+                    ctx.strokeStyle = this.IMPORTANT_COLOR;
+                if (chr === '\r') {
+                    _StdOut.advanceLine();
+                    x = _Console.currentXPosition;
+                    y = _Console.currentYPosition;
+                }
+                var c = CanvasTextFunctions.letter(chr);
                 if (!c) {
                     continue;
                 }
@@ -268,6 +280,8 @@ var TSOS;
         CanvasTextFunctions.commands = [];
         CanvasTextFunctions.TEXT_COLOR = '#002B36';
         CanvasTextFunctions.COMMAND_COLOR = '#268BD2';
+        CanvasTextFunctions.IMPORTANT_COLOR = '#870580';
+        CanvasTextFunctions.isImportant = false;
         return CanvasTextFunctions;
     }());
     TSOS.CanvasTextFunctions = CanvasTextFunctions;

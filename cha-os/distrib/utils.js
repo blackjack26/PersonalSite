@@ -5,7 +5,7 @@
  -------- */
 var TSOS;
 (function (TSOS) {
-    var Utils = (function () {
+    var Utils = /** @class */ (function () {
         function Utils() {
         }
         Utils.toHex = function (n, prefix) {
@@ -23,6 +23,23 @@ var TSOS;
         };
         Utils.toDecimal = function (hex) {
             return parseInt(hex, 16);
+        };
+        Utils.hexToString = function (data) {
+            var str = "";
+            for (var i = 0; i < data.length - 1; i += 2) {
+                var codeStr = data[i] + data[i + 1];
+                if (codeStr === "00")
+                    break;
+                str += String.fromCharCode(TSOS.Utils.toDecimal(codeStr));
+            }
+            return str;
+        };
+        Utils.stringToHex = function (data) {
+            var hex = "";
+            for (var i = 0; i < data.length; i++) {
+                hex += data.charCodeAt(i).toString(16);
+            }
+            return hex.toUpperCase();
         };
         Utils.trim = function (str) {
             // Use a regular expression to remove leading and trailing spaces.

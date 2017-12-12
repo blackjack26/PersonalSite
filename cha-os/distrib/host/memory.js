@@ -1,6 +1,6 @@
 var TSOS;
 (function (TSOS) {
-    var Memory = (function () {
+    var Memory = /** @class */ (function () {
         function Memory(addresses) {
             if (addresses === void 0) { addresses = new Array(_MemorySize); }
             this.addresses = addresses;
