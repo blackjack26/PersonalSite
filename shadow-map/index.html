@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html style="overflow: hidden;">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/bulma.css" />
+</head>
+<style>
+    .title, .subtitle, .hero-foot {
+        font-family: "Century Gothic", serif;
+    }
+    .subtitle {
+        font-style: italic;
+        color: rgba(255,255,255,0.5) !important;
+    }
+
+    .hero-foot {
+        padding: 5px;
+        text-align: center;
+    }
+    .scene {
+        opacity: 0;
+        transition: all 1s;
+    }
+    .scene.show {
+        opacity: 1;
+    }
+
+    #description {
+        max-width: 700px;
+        width: 100%;
+        margin: 0 auto;
+    }
+</style>
+<body>
+    <section class="hero is-dark is-bold is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div id="scene-1" class="scene">
+                    <h1 class="title">
+                        Shadow Mapping
+                    </h1>
+                    <h2 class="subtitle">
+                        Made in WebGL
+                    </h2>
+                    <div id="description">
+                        Shadow mapping is the technique used to add shadows into a rendered scene through the use of
+                        a shadow projection. The idea is to create a depth image from the light source's point of view
+                        and store that as a "shadow texture". This texture is then mapped onto the scene's objects to
+                        create what appears to be the object's shadow.
+                    </div>
+                    <br />
+                    <button id="explore" class="button is-light" onclick="explore()"><span class="fa fa-compass"></span>&nbsp;Explore</button><br /><br />
+                    <button id="test" class="button is-dark" onclick="test()"><span class="fa fa-university"></span>&nbsp;Test Your Knowledge</button>
+                </div>
+            </div>
+        </div>
+        <div class="hero-foot">
+            &copy; 2017 Jack Grzechowiak
+        </div>
+    </section>
+</body>
+<script type="text/javascript">
+    window.onload = function() {
+        setTimeout(function() {
+            document.getElementById('scene-1').classList.add('show');
+        }, 250);
+    };
+
+    function explore() {
+        document.getElementById('scene-1').classList.remove('show');
+        setTimeout(function() {
+            window.location.href = "explore.html";
+        }, 1000);
+    }
+
+    function test() {
+        document.getElementById('scene-1').classList.remove('show');
+        setTimeout(function() {
+            window.location.href = "test.html";
+        }, 1000);
+    }
+</script>
+</html>

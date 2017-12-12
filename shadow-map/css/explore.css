@@ -1,0 +1,88 @@
+#toolbar {
+    position: fixed;
+    z-index: 2;
+    left: 10px;
+    top: 10px;
+    border-radius: 0.25em;
+    opacity: 0;
+    transition: opacity 1s;
+}
+#toolbar.show {
+    opacity: 1;
+}
+#toolbar .card-header {
+    user-select: none;
+}
+#toolbar .card-header:hover {
+    cursor: move;
+}
+
+#code-view {
+    position: fixed;
+    z-index: 2;
+    right: 10px;
+    top: 10px;
+    border-radius: 0.25em;
+    opacity: 0;
+    transition: opacity 1s;
+}
+#code-view.show {
+    opacity: 1;
+}
+#code-view .card-header {
+    user-select: none;
+}
+#code-view .card-header:hover {
+    cursor: move;
+}
+
+.code {
+    font-family: Monospace,serif;
+}
+.code .type {
+    color: #009e6c;
+    font-weight: bold;
+}
+.code .keyword {
+    color: #CC9B00;
+    font-weight: bold;
+}
+.code .tolerance {
+    font-weight: bold;
+    color: black;
+    transition: all 0.2s;
+}
+.code .tolerance.updated {
+    color: #ff0561;
+    font-size: 18px;
+}
+
+#gl_canvas {
+    opacity: 0;
+    transition: all 1s;
+}
+#gl_canvas.show {
+    opacity: 1;
+}
+
+#home-btn {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
+
+#notification {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 0.25em;
+    opacity: 0;
+    transition: opacity 1s;
+}
+#notification.show {
+    opacity: 1;
+}
+#notification .card-content {
+    padding: 10px;
+    max-width: 500px;
+}

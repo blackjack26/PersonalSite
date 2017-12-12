@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html style="overflow: hidden;">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/bulma.css" />
+</head>
+<style>
+    .title, .subtitle {
+        font-family: "Century Gothic", serif;
+    }
+    .subtitle {
+        font-style: italic;
+        color: rgba(255,255,255,0.5) !important;
+        max-width: 700px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .scene {
+        opacity: 0;
+        transition: all 1s;
+    }
+    .scene.show {
+        opacity: 1;
+    }
+
+    #description {
+        max-width: 700px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .question {
+        opacity: 1;
+        transition: opacity 0.5s;
+    }
+    .question.hide {
+        opacity: 0;
+        display: none;
+    }
+</style>
+<body>
+<section class="hero is-dark is-bold is-fullheight">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+
+            <!-- question 1 -->
+            <div class="question hide" id="q1">
+                <h1 class="title">Question 1:</h1>
+                <h2 class="subtitle">
+                    When rendering the shadow map, the shadow texture is calculated from the point of view of the
+                    ________(1) and stored in a ________(2) as a texture.
+                </h2>
+
+                <div class="select">
+                    <select id="a1">
+                        <option disabled selected>Answer (1)</option>
+                        <option value="0">Eye</option>
+                        <option value="1">Light Source</option>
+                        <option value="2">Object</option>
+                    </select>
+                </div>
+
+                <div class="select">
+                    <select id="a2">
+                        <option disabled selected>Answer (2)</option>
+                        <option value="0">Render Buffer</option>
+                        <option value="1">Frame Buffer</option>
+                        <option value="2">Vertex Buffer</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- question 2 -->
+            <div class="question hide" id="q2">
+                <h1 class="title">Question 2:</h1>
+                <h2 class="subtitle">
+                    What is "Shadow Acne"?
+                </h2>
+
+                <div class="select">
+                    <select id="a3">
+                        <option disabled selected>Answer</option>
+                        <option value="0">A shadow map going through its teen years</option>
+                        <option value="1">An artifact caused by uneven surfaces</option>
+                        <option value="2">An artifact caused by the light angle on a surface</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- question 3 -->
+            <div class="question hide" id="q3">
+                <h1 class="title">Question 3:</h1>
+                <h2 class="subtitle">
+                    Which is a more efficient shadow map filter, PCF or Variance?
+                </h2>
+
+                <div class="select">
+                    <select id="a4">
+                        <option disabled selected>Answer</option>
+                        <option value="0">PCF</option>
+                        <option value="1">Variance</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- question 4 -->
+            <div class="question hide" id="q4">
+                <h1 class="title">Question 4:</h1>
+                <h2 class="subtitle">
+                    The shadow coefficient is a number between _______(1). The low value means _______(2) and the high value means _______(3).
+                </h2>
+
+                <div class="select">
+                    <select id="a5">
+                        <option disabled selected>Answer (1)</option>
+                        <option value="0">0 and 10</option>
+                        <option value="1">-1 and 1</option>
+                        <option value="2">0 and 1</option>
+                    </select>
+                </div>
+
+                <div class="select">
+                    <select id="a6">
+                        <option disabled selected>Answer (2)</option>
+                        <option value="0">Not in Shadow</option>
+                        <option value="1">Fully in Shadow</option>
+                    </select>
+                </div>
+
+                <div class="select">
+                    <select id="a7">
+                        <option disabled selected>Answer (3)</option>
+                        <option value="0">Not in Shadow</option>
+                        <option value="1">Fully in Shadow</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- question 5 -->
+            <div class="question hide" id="q5">
+                <h1 class="title">Question 5:</h1>
+                <h2 class="subtitle">
+                    What filtering uses the chebyshev probabilist prediction?
+                </h2>
+
+                <div class="select">
+                    <select id="a8">
+                        <option disabled selected>Answer</option>
+                        <option value="0">PCF</option>
+                        <option value="1">VSM</option>
+                        <option value="2">SSM</option>
+                        <option value="3">None of the Above</option>
+                    </select>
+                </div>
+            </div>
+
+            <br />
+            <button class="button is-primary hide" id="answer-btn" onclick="checkAnswer(this)"><span class="fa fa-question-circle" id="answer-chk">&nbsp;</span> <span id="answer-msg">Check Answer</span></button>
+
+            <div id="next-question" style="display: none">
+                <br />
+                <button class="button is-black" onclick="next()">Next Question</button>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<script type="text/javascript">
+
+    let qNum = 1;
+
+    function checkAnswer(btn) {
+        let correct = false;
+
+        const icon = document.getElementById('answer-chk');
+        icon.classList.remove('fa-question-circle');
+
+        btn.classList.remove('is-primary');
+        btn.classList.remove('is-success');
+        btn.classList.remove('is-danger');
+
+        if (qNum === 1) {
+            const a1 = document.getElementById('a1').value;
+            const a2 = document.getElementById('a2').value;
+
+            if (`${a1}${a2}` == "10") {
+                correct = true;
+            }
+        }
+        else if (qNum === 2) {
+            const a3 = document.getElementById('a3').value;
+
+            if (a3 === "2") {
+                correct = true;
+            }
+        }
+        else if (qNum === 3) {
+            const a4 = document.getElementById('a4').value;
+
+            if (a4 === "1") {
+                correct = true;
+            }
+        }
+        else if (qNum === 4) {
+            const a5 = document.getElementById('a5').value;
+            const a6 = document.getElementById('a6').value;
+            const a7 = document.getElementById('a7').value;
+
+            if (`${a5}${a6}${a7}` == "201") {
+                correct = true;
+            }
+        }
+        else if (qNum === 5) {
+            const a8 = document.getElementById('a8').value;
+
+            if (a8 === "1") {
+                correct = true;
+                document.querySelector('#next-question .button').textContent = "Return";
+                document.querySelector('#next-question .button').onclick = function() {
+                    window.location.href = "index.html";
+                }
+            }
+        }
+
+        // Change buttons
+        if (correct) {
+            btn.classList.add('is-success');
+            icon.classList.add('fa-check-circle');
+            document.getElementById('next-question').style.display = 'block';
+            document.getElementById('answer-msg').textContent = 'Correct!';
+        } else {
+            btn.classList.add('is-danger');
+            icon.classList.add('fa-times-circle')
+        }
+    }
+
+    function next() {
+        document.getElementById(`q${qNum}`).classList.add('hide');
+        document.getElementById(`q${++qNum}`).classList.remove('hide');
+
+        document.getElementById('next-question').style.display = 'none';
+
+        const btn = document.getElementById('answer-btn');
+        btn.classList.add('is-primary');
+        btn.classList.remove('is-success');
+
+        const icon = document.getElementById('answer-chk');
+        icon.classList.add('fa-question-circle');
+        icon.classList.remove('fa-check-circle');
+        document.getElementById('answer-msg').textContent = 'Check Answer';
+
+    }
+
+    window.onload = function() {
+        document.getElementById(`q${qNum}`).classList.remove('hide');
+        document.getElementById('answer-btn').classList.remove('hide');
+    }
+
+</script>
+</html>
