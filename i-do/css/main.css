@@ -1,0 +1,42 @@
+body {
+	background-color: #7081A1;
+	padding: 0;
+	margin: 0;
+}
+
+#page-title {
+	font-family: 'Sacramento', cursive;
+	font-size: 6rem;
+	color: #f8e89e;
+	font-weight: 500;
+	margin-bottom: 0;
+}
+
+#page-subtitle {
+	color: #EEEEEE;
+	margin-top: 0;
+	font-family: 'Cabin Sketch', cursive;
+  font-weight: 500;
+  font-size: 2rem;
+}
+
+.container {
+  display: flex;
+  text-align: center;
+  align-content: center;
+  flex-flow: column;
+  justify-content: center;
+  height: 90vh;
+}
+
+@media screen and (max-width: 767px) {
+	#page-title {
+	  font-size: 4rem;
+    line-height: 4rem;
+    margin-bottom: 1rem;
+	}
+	
+	#page-subtitle {
+	  font-size: 1.75rem;
+	}
+}
