@@ -1,0 +1,12 @@
+html, body {
+	background: #DEDEDE;
+	overflow-y: auto;
+}
+
+#name-title .title {
+	font-size: 3rem;
+}
+
+#name-title .subtitle {
+	font-size: 1.75rem;
+}
