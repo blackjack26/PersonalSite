@@ -117,6 +117,75 @@ hr {
 	justify-content: center;
 	height: 90vh;
 	padding: 10px;
+	align-items: center;
+}
+
+/* Picture Frame */
+.picture {
+	width: 250px;
+	position: relative;
+	float: left;
+	margin: 0 20px;
+	transform: rotate(0deg);
+  transform-origin: top;
+  transition: all 0.5s;
+}
+.picture:hover {
+	transform: rotate(0deg) !important;
+	cursor: pointer;
+}
+.picture:hover .inside {
+	background: #333;
+}
+
+.hook {
+	width: 4px;
+	height: 4px;
+	background-color: #5c5c5d;
+	margin: 0 auto 32px auto;
+	border-radius: 50%;
+	box-shadow: 0 1px 0 1px #a49c7c;
+}
+
+.hook:before {
+	content: '';
+	width: 40px;
+	height: 40px;
+	border: 2px solid #a49c7c;
+	position: absolute;
+	left: 103px;
+	top: 13px;
+	transform: rotate(45deg);
+	z-index: -1;
+}
+
+.frame {
+	height: auto;
+	border-top: 10px solid #EEE;
+	border-right: 10px solid #CCC;
+	border-bottom: 10px solid #CCC;
+	border-left: 10px solid #DDD;
+	z-index: 1;
+}
+
+.inside {
+	height: 100%;
+	background: #555;
+	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3) inset;
+	padding: 1rem 0;
+	min-height: 6rem;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	transition: background 0.5s;
+}
+
+.inside>span {
+	color: #f8e89e;
+	font-family: 'Rouge Script', cursive;
+	font-size: 3rem;
+	font-weight: 400;
+	line-height: 3rem;
 }
 
 @media screen and (max-width: 767px) {

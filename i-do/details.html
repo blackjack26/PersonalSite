@@ -10,10 +10,44 @@
   <link rel="apple-touch-icon" href="public/images/icon.png"/>
   <!-- Fonts -->
   <link rel="stylesheet" href="public/css/fonts.css" />
+  <link href="https://fonts.googleapis.com/css?family=Rouge+Script" rel="stylesheet">
   <link rel="stylesheet" href="public/css/main.css" />
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="public/js/main.js"></script>
 </head>
 <body>
+  <div class="container" style="flex-flow: row; display: none">
+	  <div class="picture" style="transform: rotate(-3deg)">
+	    <div class="hook"></div>
+	    <div class="frame">
+	      <div class="inside">
+	       <span>The Wedding</span>
+	      </div>
+	    </div>
+	  </div>
+	  
+    <div class="picture" style="transform: rotate(4deg)">
+      <div class="hook"></div>
+      <div class="frame">
+        <div class="inside">
+         <span>The Reception</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="picture" style="transform: rotate(-2deg)">
+      <div class="hook"></div>
+      <div class="frame">
+        <div class="inside">
+         <span>Registry</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  $(function() {
+    $('.container').fadeIn(500);
+  });
+  </script>
 </body>
 </html>
