@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>John Grzechowiak</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-icon" href="public/images/itouch-icon.png"/>
+    <link rel="shortcut icon" href="public/images/icon.png" type="image/png" />
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="public/css/main.css" />
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="public/js/main.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134641280-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		
+		  gtag('config', 'UA-134641280-1');
+		</script>
+</head>
+<body>
+    <div class="centered">
+        <div id="home-content">
+            <div id="identification">
+                <h1 id="name"><span id="left-brac">&lt;</span><span id="name-n">John Grzechowiak</span><span id="right-brac">/></span></h1>
+                <h2 id="subtitle">Software Engineer</h2>
+            </div>
+            <div class="container center">
+                <button id="about-btn" class="btn" onclick="moveName()">Learn More</button>
+            </div>
+
+            <div id="section-links">
+                <p class="command" id="cmd2" style="opacity: 0"><span style="color: #A6E22E">guest@johngrzechowiak.com</span>: <span class="dir" style="color: #AE81FF">~</span>$ <span class="inpt"></span></p>
+                <p class="command" id="cmd1"><span style="color: #A6E22E">guest@johngrzechowiak.com</span>: <span class="dir" style="color: #AE81FF">~</span>$ <span class="inpt"></span></p>
+
+                <!-- Main Navigation -->
+                <div id="folder-box" class="flexbox">
+                    <div class="box" id="projects">
+                        <h1>Projects<span>/</span></h1>
+                    </div>
+                    <div class="box" id="about-me">
+                        <h1>About Me<span>/</span></h1>
+                    </div>
+                    <div class="box" id="contact">
+                        <h1>Contact<span>/</span></h1>
+                    </div>
+                </div>
+
+                <!-- Welcome Message -->
+                <div id="welcome-box" class="content-box">
+                    <h2 class="section-title">Welcome!</h2>
+                    <p class="page-text">
+                        Hello! I'm John Grzechowiak and I would like to thank you for visiting my page. To learn more about who I am, what I do, and how to contact me, click one of the links above to get started!
+                        <br /><br />
+                        If you have any questions feel free to contact me and I'll respond as quickly as possible.
+                    </p>
+                </div>
+
+                <!-- Projects -->
+                <div class="box-wrapper">
+
+                    <!-- Project Display -->
+                    <div id="projects-box" class="content-box">
+                        <h2 class="section-title">My Applications</h2>
+                        <div id="app-box">
+
+                            <!-- Cognitive Release -->
+                            <div class="app-container" data-link="http://blackjack26.github.io/IntroRepository/" data-box="cog-rel">
+                                <div class="app-image">
+                                    <img src="public/images/cognitive_release_img.png" style="transform: translate(-10px, -50px);" />
+                                    <div class="overlay">
+                                        <h1 class="app-title">Cognitive Release</h1>
+                                        <p class="app-description">
+                                            Javascript text-adventure game
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Graphic Narrative DB -->
+                            <div class="app-container" data-box="gndb">
+                                <div class="app-image" data-link="">
+                                    <img src="public/images/gndb.png" style="transform: translate(-10px, -50px);" />
+                                    <div class="overlay">
+                                        <h1 class="app-title">Graphic Narrative DB</h1>
+                                        <p class="app-description">
+                                            PHP webapp for student articles
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Feedback Manager -->
+                            <div class="app-container" data-link="https://github.com/blackjack26/redjack-marist" data-box="review">
+                                <div class="app-image">
+                                    <img src="public/images/suggestion_the_hartford.png" style="transform: translate(-10px, -50px);" />
+                                    <div class="overlay">
+                                        <h1 class="app-title">Feedback Manager</h1>
+                                        <p class="app-description">
+                                            PHP webapp to review suggestions
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ChaOS -->
+                            <div class="app-container" data-box="tsos">
+                                <div class="app-image">
+                                    <img src="public/images/chaos.PNG" style="transform: translate(-10px, -50px);" />
+                                    <div class="overlay">
+                                        <h1 class="app-title">ChaOS</h1>
+                                        <p class="app-description">
+                                            TypeScript Operating System
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shadow Mapping WebGL -->
+                            <div class="app-container" data-box="shadow">
+                                <div class="app-image">
+                                    <img src="public/images/shadow_map.PNG" style="transform: translate(-10px, -50px);" />
+                                    <div class="overlay">
+                                        <h1 class="app-title">Shadow Map</h1>
+                                        <p class="app-description">
+                                            WebGL shadow map educational tool
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dance Scheduler -->
+                            <div class="app-container" data-link="https://bitbucket.org/blackjack26/simmons-dance-scheduler" data-box="dance">
+                                <div class="app-image">
+                                    <img src="public/images/dance_scheduler.png" style="transform: translate(-10px, -50px);" />
+                                    <div class="overlay">
+                                        <h1 class="app-title">Dance Scheduler*</h1>
+                                        <p class="app-description">
+                                            Java webapp to plan weekly rehearsals
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="exception">* Currently in progress</p>
+                    </div>
+
+                    <!-- Project Details -->
+                    <div id="project-side-box" class="content-box side-box">
+                        <span id="back-btn">&lsaquo;&nbsp; Back to Projects</span>
+
+                        <!-- Cognitive Release -->
+                        <div id="cog-rel-box" class="sub-box">
+                            <h2 class="section-title">Cognitive Release</h2>
+                            <p class="page-text">
+                                This project is a Javascript text-adventure game completed for my Intro to Programming
+                                class at Marist College. The player is able to enter commands into a textfield and move
+                                their character about a map displayed on their screen. As the user types, the available
+                                commands highlight themselves based on the entered text. Depending on how the game is
+                                played, the end-game is different.
+                            </p>
+                            <div class="languages">
+                                <ul>
+                                    <li>Javascript</li>
+                                    <li>jQuery</li>
+                                    <li>CSS</li>
+                                    <li>HTML</li>
+                                </ul>
+                            </div>
+                            <div class="project-links">
+                                <div class="link">
+                                    <img src="public/images/GitHub-Mark-Light-32px.png" width="32"/>
+                                    <a href="https://github.com/blackjack26/IntroRepository" target="_blank">View on GitHub</a>
+                                </div>
+                                <div class="link">
+                                    <img src="public/images/website-logo.png" width="32"/>
+                                    <a href="http://blackjack26.github.io/IntroRepository/" target="_blank">View Webpage</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Graphic Narrative DB -->
+                        <div id="gndb-box" class="sub-box">
+                            <h2 class="section-title">Graphic Narrative Database</h2>
+                            <p class="page-text">
+                                This project is a web application that allows students to write articles about different
+                                graphic narratives, post them to the site, and search other articles written by students.
+                                Before the articles are published, a faculty member will read over the article and eiter
+                                reject or approve it. If rejected, the student must fix the issues and resubmit. The goal
+                                of the site is to be used for educational purposes and not a fan site.
+                                <br /><br />
+                                The project is currently in development by myself and a team of 3 other students. While
+                                I am the project lead, everyone is assigned tasks each week. I have touched almost every
+                                part of the site for styling and to add PHP functionality.
+                            </p>
+                            <div class="languages">
+                                <ul>
+                                    <li>PHP</li>
+                                    <li>MySQL</li>
+                                    <li>Javascript</li>
+                                    <li>jQuery</li>
+                                    <li>Bootstrap</li>
+                                    <li>CSS</li>
+                                    <li>HTML</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Feedback Manager -->
+                        <div id="review-box" class="sub-box">
+                            <h2 class="section-title">Feedback Manager</h2>
+                            <p class="page-text">
+                                This PHP web application is used for managing customer feedback. I created this project
+                                with Gary Coltrane for the Marist College Computer Society hackathon during the spring
+                                of 2016. The prompt was given by
+                                <a href="https://www.thehartford.com/" target="_blank">The Hartford</a> to create an
+                                application where customers could give suggestions to the company and the administrators
+                                could review and implement (or not) the suggestions.
+                                <br /><br />
+                                In our application, customers can log in and vote on existing suggestions or create
+                                their own. If a duplicate suggestion is created, it can be marked by the admin.
+                                Administrators can have conversations through the app within each suggestion
+                                (chat room functionality). In the end, they can choose to either implement or not
+                                implement the suggestion. There is also statistics about the data and other management
+                                options available.
+                            </p>
+                            <div class="languages">
+                                <ul>
+                                    <li>PHP</li>
+                                    <li>MySQL</li>
+                                    <li>JavaScript</li>
+                                    <li>jQuery</li>
+                                    <li>Bootstrap</li>
+                                    <li>CSS</li>
+                                    <li>HTML</li>
+                                </ul>
+                            </div>
+                            <div class="project-links">
+                                <div class="link">
+                                    <img src="public/images/GitHub-Mark-Light-32px.png" />
+                                    <a href="https://github.com/blackjack26/redjack-marist" target="_blank">View on GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ChaOS -->
+                        <div id="tsos-box" class="sub-box">
+                            <h2 class="section-title">ChaOS</h2>
+                            <p class="page-text">
+                                This application is a TypeScript operating system that can execute the 6502 instruction
+                                set. The user can input a set of opcodes that the OS then executes. There is a built in
+                                set of commands that the user can enter into the CLI that is Unix-like. The user is also
+                                able to load files onto the system using HTML5 local storage. The OS is able to execute
+                                multiple programs at the same time and properly manage interrupts.
+                            </p>
+                            <div class="languages">
+                                <ul>
+                                    <li>TypeScript</li>
+                                    <li>JavaScript</li>
+                                    <li>Gulp</li>
+                                    <li>Bulma</li>
+                                    <li>CSS</li>
+                                    <li>HTML</li>
+                                </ul>
+                            </div>
+                            <div class="project-links">
+                                <div class="link">
+                                    <img src="public/images/website-logo.png" />
+                                    <a href="http://www.johngrzechowiak.com/cha-os/" target="_blank">View Online</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="shadow-box" class="sub-box">
+                            <h2 class="section-title">WebGL Shadow Mapping</h2>
+                            <p class="page-text">
+                                This application is made using WebGL and is an exploration tool into a subset of shadow
+                                mapping concepts in graphics. The user can explore a scene and toggle options to see
+                                how it affects the scene. Also the GLSL code is displayed so the user understands how
+                                the shadow is calculated.
+                                <br /><br />
+                                There is also a "test your knowledge" portion of the application that quizzes you about
+                                the concepts talked about while exploring the scene. There are several questions about
+                                shadow mapping to quiz yourself.
+                            </p>
+                            <div class="languages">
+                                <ul>
+                                    <li>WebGL</li>
+                                    <li>JavaScript</li>
+                                    <li>Bulma</li>
+                                    <li>CSS</li>
+                                    <li>HTML</li>
+                                </ul>
+                            </div>
+                            <div class="project-links">
+                                <div class="link">
+                                    <img src="public/images/website-logo.png" />
+                                    <a href="http://www.johngrzechowiak.com/shadow-map/" target="_blank">View Online</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dance Scheduler -->
+                        <div id="dance-box" class="sub-box">
+                            <h2 class="section-title">Simmons College Dance Scheduler <span style="color: #F4BF75">(In Progress)</span></h2>
+                            <p class="page-text">
+                                This web application is made using the Java-based <a href="http://sparkjava.com/" target="_blank">Spark Framework</a>. The goal of this project is to provide a quick system that allows the dance company organizers to easily determine the best times to place certain dances and which dancers to place in those dances.
+                                <br /><br />
+                                Each dance has a choreographer and that choreographer chooses their preferred dancers. The dancers also choose their preferred dances. Both the dancers and choreographers give the times during the week they are available. These times are based on the scheduled times the company has the dance studio. When the program runs, the schedules with the most matches in all the categories are displayed.
+                            </p>
+                            <div class="languages">
+                                <ul>
+                                    <li>Java</li>
+                                    <li>Javascript</li>
+                                    <li>jQuery</li>
+                                    <li>Bootstrap</li>
+                                    <li>CSS</li>
+                                    <li>HTML</li>
+                                    <li>JSON</li>
+                                </ul>
+                            </div>
+                            <div class="project-links">
+                                <div class="link">
+                                    <img src="public/images/bitbucket_rgb_white-01.png" width="32"/>
+                                    <a href="https://bitbucket.org/blackjack26/simmons-dance-scheduler" target="_blank">View on BitBucket</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Me -->
+                <div id="about-me-box" class="content-box">
+                    <h2 class="section-title">Who I Am</h2>
+                    <div id="about-links">
+                        <span>&bullet;</span>
+                        <a href="#education">Education</a>
+                        <span>&bullet;</span>
+                        <a href="#experience">Experience</a>
+                        <span>&bullet;</span>
+                        <a href="#fun">For Fun</a>
+                        <span>&bullet;</span>
+                    </div>
+
+                    <!-- Education -->
+                    <div id="about-education" class="about-box">
+                        <h2 class="about-title"><a name="education">Education</a></h2>
+                        <div class="info-wrapper">
+                            <div class="info">
+                                <h2 class="info-value">Marist College</h2>
+                                <p class="info-title">Institution</p>
+                            </div>
+                            <div class="info">
+                                <h2 class="info-value">Computer Science</h2>
+                                <p class="info-title">Major</p>
+                            </div>
+                            <div class="info">
+                                <h2 class="info-value">Software Development</h2>
+                                <p class="info-title">Concentration</p>
+                            </div>
+                        </div>
+                        <div class="info-wrapper">
+                            <div class="info">
+                                <h2 class="info-value">3.85 / 4.0</h2>
+                                <p class="info-title">GPA</p>
+                            </div>
+                            <div class="info">
+                                <h2 class="info-value">Cybersecurity</h2>
+                                <p class="info-title">Minor</p>
+                            </div>
+                            <div class="info">
+                                <h2 class="info-value">Dean's List*</h2>
+                                <p class="info-title">Honors</p>
+                            </div>
+                        </div>
+                        <p class="exception">* Fall 2014, Fall 2015, Spring/Fall 2016, Spring 2017</p>
+                    </div>
+
+                    <!-- Experience -->
+                    <div id="about-experience" class="about-box">
+                        <h2 class="about-title"><a name="experience">Work Experience</a></h2>
+                        <div class="experience">
+                            <h2 class="experience-title">VoltServer, Inc.</h2>
+                            <h3 class="experience-subtitle">Software Engineer Intern</h3>
+                            <div class="experience-desc">
+                                <h4>Technologies Used</h4>
+                                <div class="languages">
+                                    <ul>
+                                        <li>React JS</li>
+                                        <li>Bulma</li>
+                                        <li>Linux (Debian)</li>
+                                        <li>SQLite</li>
+                                        <li>C#</li>
+                                        <li>Jenkins</li>
+                                        <li>Node</li>
+                                        <li>Git</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="experience">
+                            <h2 class="experience-title">Rite Solutions, Inc.</h2>
+                            <h3 class="experience-subtitle">Software Engineer Intern</h3>
+                            <div class="experience-desc">
+                                <h4>Technologies Used</h4>
+                                <div class="languages">
+                                    <ul>
+                                        <li>Java</li>
+                                        <li>Linux (RedHat)</li>
+                                        <li>Robot Framework</li>
+                                        <li>Git</li>
+                                        <li>JIRA</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="experience">
+                            <h2 class="experience-title">Marist College</h2>
+                            <h3 class="experience-subtitle">Student Software Engineer</h3>
+                            <div class="experience-desc">
+                                <h4>Technologies Used</h4>
+                                <div class="languages">
+                                    <ul>
+                                        <li>Java</li>
+                                        <li>JavaScript</li>
+                                        <li>jQuery</li>
+                                        <li>Play Framework</li>
+                                        <li>Liferay</li>
+                                        <li>Bootstrap</li>
+                                        <li>HTML</li>
+                                        <li>Git</li>
+                                        <li>JSP</li>
+                                        <li>PHP</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fun -->
+                    <div id="about-fun" class="about-box">
+                        <h2 class="about-title"><a name="fun">Fun</a></h2>
+                        <p style="font-style: italic;">In Progress</p>
+                    </div>
+                </div>
+
+                <!-- Contact -->
+                <div id="contact-box" class="content-box">
+                    <h2 class="section-title">How to Reach Me</h2>
+                    <div id="email-form">
+                        <div class="input-group">
+                            <label for="firstname">First Name</label>
+                            <input class="form-input" type="text" id="firstname" />
+                        </div>
+                        <div class="input-group">
+                            <label for="lastname">Last Name</label>
+                            <input class="form-input" type="text" id="lastname" />
+                        </div>
+                        <div class="input-group">
+                            <label for="message">Message</label>
+                            <textarea class="form-input" id="message" rows="6"></textarea>
+                        </div>
+                        <div style="text-align: right; width: 100%">
+                            <button class="btn curved" onclick="sendEmail()"><span class="symbol">email</span></button>
+                        </div>
+                    </div>
+                    <div id="social-links">
+                        <p>You can also reach me at the following:</p>
+                        <button class="btn curved" onclick="window.open('https://www.linkedin.com/in/john-grzechowiak-001b67b1');"><span class="symbol">linkedin</span></button>
+                        <button class="btn curved" onclick="window.open('https://www.facebook.com/john.grzechowiak');"><span class="symbol">facebook</span></button>
+                        <button class="btn curved" onclick="window.open('http://stackoverflow.com/users/5516551/blackjack26?tab=profile');"><span class="symbol">stackoverflow</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var showing = false;
+        var mobile = false;
+
+        $(function(){
+            intro();
+
+            $("#projects").click(function(){
+                $("#projects-box").removeClass("shift");
+                makeActiveHeading("Projects", this, "#projects-box");
+                $("#project-side-box").show();
+            });
+            $("#about-me").click(function(){
+                makeActiveHeading("About\\ Me", this, "#about-me-box");
+            });
+            $("#contact").click(function(){
+                makeActiveHeading("Contact", this, "#contact-box");
+            });
+
+            $(".app-container").click(function(){
+                var $contBox = $(this).closest(".content-box");
+                $contBox.addClass("shift");
+                $("#project-side-box").addClass("open");
+                var box = $(this).data("box");
+                $(".sub-box").hide();
+
+                $("#" + box + "-box").fadeIn(500);
+                window.scrollTo(0,$("#project-side-box").offset().top - 10);
+            });
+
+            $("#back-btn").click(function(){
+                $("#projects").click();
+            });
+
+            $(".input-group input").focus(function(){
+                $(this).siblings("label").addClass("active");
+            });
+            $(".input-group textarea").focus(function(){
+                $(this).siblings("label").addClass("active-plus");
+            });
+            $(".input-group input, .input-group textarea").blur(function(){
+                if($(this).val() == undefined || $(this).val() == "") {
+                    $(this).siblings("label").removeClass("active");
+                    $(this).siblings("label").removeClass("active-plus");
+                    $(this).removeClass("valid");
+                } else {
+                    $(this).addClass("valid");
+                }
+            })
+
+            if (!!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/) && navigator.sayswho.split(' ').pop() < 6.1) {
+                alert("Browser out of date! Upgrade to Safari 6.1 or higher.");
+            }
+
+            fixCommandSize();
+        });
+
+        function sendEmail() {
+            var subject = encodeURI("A hello from " + $("#firstname").val() + " " + $("#lastname").val());
+            var body = encodeURI($("#message"));
+            window.open('mailto:johngrzechowiak26@gmail.com?subject=' + subject + '&body=' + body, '_blank');
+        }
+
+        $(window).resize(function(){
+            fixCommandSize();
+        });
+
+        function fixCommandSize() {
+            if ($(window).width() <= 667 && !mobile) {
+                $(".dir").append("<br>");
+                mobile = true;
+            } else if ($(window).width() > 667){
+                mobile = false;
+                $(".dir br").remove();
+            }
+        }
+
+        function makeActiveHeading(loc, el, box) {
+            if (!showing && !$(this).hasClass("active")) {
+                showing = true;
+                var msg = "cd "+loc+"/";
+                if ($(el).hasClass("not-active"))
+                    msg = "cd ../"+loc+"/";
+                updateCommand(msg, 80);
+                $(".box").removeClass("active");
+                $(el).removeClass("not-active");
+                $(el).addClass("active");
+                $(".box").not(el).addClass("not-active");
+
+                showContentBox(box);
+            }
+        }
+
+        function updateCommand(text, speed, _callback) {
+            $("#cmd2").removeAttr("style");
+            var txt = $("#cmd1 .inpt").text();
+            $("#cmd2 .inpt").text(txt);
+            $("#cmd1 .inpt").text("");
+            showText("#cmd1 .inpt", text, 0, speed, _callback);
+        }
+
+        function intro() {
+            $("#name-n").css("opacity", 1);
+            $("#subtitle").css("opacity", 1);
+            $("#about-btn").css("opacity", 1);
+            $("#left-brac").addClass("open");
+            $("#right-brac").addClass("open");
+        }
+
+        function moveName() {
+            var pos = $("#identification").offset();
+            var left = -pos.left;
+            var top = -pos.top;
+
+            if (mobile) {
+                top = top - 15;
+            }
+
+            $("#identification").css("transform", "translate(0px, "+top+"px) scale(0.8,0.8)");
+
+            $("#about-btn").css({
+                transition: "all 0.7s",
+                transform: "translateY(50px)",
+                opacity: 0
+            });
+
+            setTimeout(function(){
+                document.getElementById("identification").setAttribute("style", "");
+                $("#identification").addClass("fixed");
+                $("#about-btn").parent().hide();
+                $("#home-content").addClass("top");
+                $("#section-links").fadeIn(300, function(){
+                    showText("#cmd1 .inpt", "ls -tr", 0, 100, function(){
+                        $("#folder-box .box h1").hide();
+                        $("#folder-box").addClass("shown");
+                        $("#folder-box .box h1").fadeIn(300);
+                        setTimeout(function(){
+                            showContentBox("#welcome-box");
+                        }, 300);
+                    });
+                });
+            }, 700);
+        }
+
+        function showContentBox(id) {
+            $(".content-box").not(id).removeClass("open");
+            $(".content-box").not(id).hide();
+            $(id).fadeIn(500);
+            $(id).addClass("open");
+        }
+
+        function showText(target, message, index, interval, _callback) {
+            if (index < message.length) {
+                $(target).append(message[index++]);
+                setTimeout(function(){
+                    showText(target, message, index, interval, _callback);
+                }, interval);
+            } else {
+                if (_callback !== undefined)
+                    _callback();
+                showing = false;
+            }
+        }
+
+        navigator.sayswho= (function(){
+            var ua= navigator.userAgent, tem,
+            M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+            if(/trident/i.test(M[1])){
+                tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+                return 'IE '+(tem[1] || '');
+            }
+            if(M[1]=== 'Chrome'){
+                tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+                if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+            }
+            M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+            if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+            return M.join(' ');
+        })();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script type="text/javascript" src="../public/js/amplitude.js"></script>
+  <script type="text/javascript">
+    amplitude.getInstance().logEvent('PAGE_LOAD', { page: '/about' });
+  </script>
+  <head>
+    <title>Jack Grzechowiak - About</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="shortcut icon" href="../public/images/icon.png" type="image/png" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../public/css/fa.min.css" />
+    <link rel="stylesheet" href="../public/css/bulma.min.css" />
+    <link rel="stylesheet" href="../public/css/main.css" />
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="../public/js/main.js" type="text/javascript"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134641280-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-134641280-1');
+    </script>
+  </head>
+  <body>
+    <!-- Header -->
+    <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a role="button" class="navbar-burger has-text-white" aria-label="menu" aria-expanded="false"
+           data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-center">
+          <a id="nav-home" class="navbar-item has-text-white has-text-weight-light">
+            Home
+          </a>
+          <a id="nav-about" class="navbar-item has-text-primary has-text-weight-semibold">
+            About
+          </a>
+          <a id="nav-projects" class="navbar-item has-text-white has-text-weight-light">
+            Projects
+          </a>
+          <a id="nav-contact" class="navbar-item has-text-white has-text-weight-light">
+            Contact
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div class="main-content">
+      <h1>
+        A little about myself
+      </h1>
+      <p class="b1">
+        Ever since I wrote my first line of code, I’ve been hooked by solving problems through programming and design. I started by writing backend logic and gradually moved on towards full stack development.
+        <br /><br />
+        Every day I find there is always a new problem to solve and by extension, a new learning opportunity to grow from. I’m driven to provide the highest quality code that not only gets the job done, but is maintainable for developers in the future.
+      </p>
+
+      <div class="jobs-wrapper">
+        <div class="job-section">
+          <i class="fas fa-code"></i>
+          <h2>Front-end Developer</h2>
+          <p class="b2">
+            I enjoy building unique components from nothing to creatively implement a clean user experience.
+          </p>
+          <br />
+          <h3>Languages I&apos;ve used:</h3>
+          <p class="b2">
+            React, NextJS, Vue, SCSS, TypeScript, Slim, Angular, jQuery
+          </p>
+        </div>
+
+        <div class="vertical-divider"></div>
+
+        <div class="job-section">
+          <i class="fas fa-cogs"></i>
+          <h2>Back-end Developer</h2>
+          <p class="b2">
+            I prioritize maintainable and extensible core logic for APIs and business-centric operations.
+          </p>
+          <br />
+          <h3>Frameworks I&apos;ve adopted:</h3>
+          <p class="b2">
+            ExpressJS, Rails, PHP, Play Framework, Postgres, SQL Server, SQLite, Java
+          </p>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-flow: column; align-items: center">
+        <h3 style="margin: 5px 0">Dev Tools:</h3>
+        <p class="b2" style="margin: 5px 0">
+          GitHub, RubyMine, Figma, Docker, VSCode, BitBucket, JIRA, Confluence, IntelliJ, Eclipse
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

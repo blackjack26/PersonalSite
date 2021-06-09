@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript" src="../public/js/amplitude.js"></script>
+<script type="text/javascript">
+  amplitude.getInstance().logEvent('PAGE_LOAD', { page: '/projects' });
+</script>
+<head>
+  <title>Jack Grzechowiak - Projects</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="shortcut icon" href="../public/images/icon.png" type="image/png" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../public/css/fa.min.css" />
+  <link rel="stylesheet" href="../public/css/bulma.min.css" />
+  <link rel="stylesheet" href="../public/css/main.css" />
+
+  <!-- JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="../public/js/main.js" type="text/javascript"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134641280-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-134641280-1');
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger has-text-white" aria-label="menu" aria-expanded="false"
+         data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-center">
+        <a id="nav-home" class="navbar-item has-text-white has-text-weight-light">
+          Home
+        </a>
+        <a id="nav-about" class="navbar-item has-text-white has-text-weight-light">
+          About
+        </a>
+        <a id="nav-projects" class="navbar-item has-text-primary has-text-weight-semibold">
+          Projects
+        </a>
+        <a id="nav-contact" class="navbar-item has-text-white has-text-weight-light">
+          Contact
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div class="main-content">
+    <h1>
+      Some examples of my work
+    </h1>
+    <p class="b1">
+      I’ve always had a passion for building and designing applications for issues I’ve encountered in my life. Ideas have sprung while doing house chores, playing ping pong, and while listening to podcasts.
+      <br /><br />
+      Below are some examples of projects I have worked on and ones that are currently in development.
+    </p>
+
+    <div class="projects">
+      <div class="project clickable" onclick="window.location.href = '/cha-os'">
+        <img src="../public/images/chaos.png" alt="ChaOS" />
+        <div class="caption">
+          <h4>ChaOS</h4>
+          <p>TypeScript Operating System</p>
+        </div>
+      </div>
+      <div class="project clickable" onclick="window.location.href = '/shadow-map'">
+        <img src="../public/images/shadow.png" alt="Shadow Mapping" />
+        <div class="caption">
+          <h4>Shadow Map</h4>
+          <p>WebGL Educational Tool</p>
+        </div>
+      </div>
+      <div class="project">
+        <img src="../public/images/pong.png" alt="Ping Pong Stat Tracker" />
+        <div class="caption">
+          <h4>Ping Pong Stat Tracker</h4>
+          <p>Ionic Mobile Application</p>
+        </div>
+      </div>
+      <div class="project">
+        <img src="../public/images/gndb.png" alt="Graphic Narrative DB" />
+        <div class="caption">
+          <h4>Graphic Narrative DB</h4>
+          <p>PHP Article Manager App</p>
+        </div>
+      </div>
+      <div class="project">
+        <img src="../public/images/feedback.png" alt="Feedback Manager" />
+        <div class="caption">
+          <h4>Feedback Manager</h4>
+          <p>PHP Suggestion Review App</p>
+        </div>
+      </div>
+      <div class="project">
+        <img src="../public/images/taz.png" alt="The Adventure Zone" />
+        <div class="caption">
+          <h4>The Adventure Zone*</h4>
+          <p>Java OpenGL RPG</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
